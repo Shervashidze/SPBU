@@ -18,15 +18,15 @@ int main()
         setlocale(0, "");
 
         int n = 0;
-        printf("Введите целое число n: ");
+        printf("Г‚ГўГҐГ¤ГЁГІГҐ Г¶ГҐГ«Г®ГҐ Г·ГЁГ±Г«Г® n: ");
         cin >> n;
 
         int m = 0;
-        printf("Введите целое число m: ");
+        printf("Г‚ГўГҐГ¤ГЁГІГҐ Г¶ГҐГ«Г®ГҐ Г·ГЁГ±Г«Г® m: ");
         cin >> m;
 
         int numbers[1000] = {};
-        printf("Введите элементы массива: ");
+        printf("Г‚ГўГҐГ¤ГЁГІГҐ ГЅГ«ГҐГ¬ГҐГ­ГІГ» Г¬Г Г±Г±ГЁГўГ : ");
         for (int i = 0; i < m + n; i++)
         {
             cin >> numbers[i];
@@ -36,7 +36,7 @@ int main()
         reversed(numbers, n, m + n - 1);
         reversed(numbers, 0, m + n - 1);
 
-        cout << "Развернутый массив: ";
+        cout << "ГђГ Г§ГўГҐГ°Г­ГіГІГ»Г© Г¬Г Г±Г±ГЁГў: ";
         for (int j = 0; j < m + n; j++)
         {
             cout << numbers[j] << " ";
