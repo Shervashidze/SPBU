@@ -72,4 +72,5 @@ int main()
 
     emptyMemory(stack);
     delete stack;
+    stack = nullptr;
 }
