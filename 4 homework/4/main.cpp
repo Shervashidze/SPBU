@@ -19,21 +19,13 @@ void processCharacter(Stack *stack, char symbol)
         int value = pop(stack);
         int prevValue = pop(stack);
         if (symbol == '+')
-        {
             push(stack, value + prevValue);
-        }
         else if (symbol == '-')
-        {
             push(stack, prevValue - value);
-        }
         else if (symbol == '*')
-        {
             push(stack, prevValue * value);
-        }
         else if (symbol == '/')
-        {
             push(stack, prevValue / value);
-        }
     }
 }
 
