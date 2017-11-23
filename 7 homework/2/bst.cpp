@@ -26,59 +26,59 @@ void clearNode(BSTNode *node)
     delete node;
 }
 
-unsigned char height(BSTNode* p)
+unsigned char height(BSTNode* node)
 {
-    return p?p->height:0;
+    return node ? node->height : 0;
 }
 
-int bfactor(BSTNode* p)
+int bfactor(BSTNode* node)
 {
-    return height(p->right)-height(p->left);
+    return height(node->right) - height(node->left);
 }
 
-void fixheight(BSTNode* p)
+void fixheight(BSTNode* node)
 {
-    unsigned char hl = height(p->left);
-    unsigned char hr = height(p->right);
-    p->height = (hl > hr ? hl : hr) + 1;
+    unsigned char left = height(node->left);
+    unsigned char right = height(node->right);
+    node->height = (left > right ? left : right) + 1;
 }
 
-BSTNode* rotateright(BSTNode* p) // правый поворот вокруг p
+BSTNode* rotateright(BSTNode* node)
 {
-    BSTNode* q = p->left;
-    p->left = q->right;
-    q->right = p;
-    fixheight(p);
-    fixheight(q);
-    return q;
+    BSTNode* temp = node->left;
+    node->left = temp->right;
+    temp->right = node;
+    fixheight(node);
+    fixheight(temp);
+    return temp;
 }
 
-BSTNode* rotateleft(BSTNode* q) // левый поворот вокруг q
+BSTNode* rotateleft(BSTNode* node)
 {
-    BSTNode* p = q->right;
-    q->right = p->left;
-    p->left = q;
-    fixheight(q);
-    fixheight(p);
-    return p;
+    BSTNode* temp = node->right;
+    node->right = temp->left;
+    temp->left = node;
+    fixheight(node);
+    fixheight(temp);
+    return temp;
 }
 
-BSTNode* balance(BSTNode* p) // балансировка узла p
+BSTNode* balance(BSTNode* node)
 {
-    fixheight(p);
-    if( bfactor(p)==2 )
+    fixheight(node);
+    if( bfactor(node)==2 )
     {
-        if( bfactor(p->right) < 0 )
-            p->right = rotateright(p->right);
-        return rotateleft(p);
+        if( bfactor(node->right) < 0 )
+            node->right = rotateright(node->right);
+        return rotateleft(node);
     }
-    if( bfactor(p)==-2 )
+    if( bfactor(node)==-2 )
     {
-        if( bfactor(p->left) > 0  )
-            p->left = rotateleft(p->left);
-        return rotateright(p);
+        if( bfactor(node->left) > 0  )
+            node->left = rotateleft(node->left);
+        return rotateright(node);
     }
-    return p; // балансировка не нужна
+    return node;
 }
 
 void clearTree(BinarySearchTree *tree)
