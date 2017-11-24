@@ -7,7 +7,7 @@ const int inf = 1000000;
 
 bool isDigit(char digit)
 {
-    return digit - '0' >= 0 && digit - '0' <=9;
+    return digit - '0' >= 0 && digit - '0' <= 9;
 }
 
 bool isDate(char *word)
