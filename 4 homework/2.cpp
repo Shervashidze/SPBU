@@ -6,9 +6,21 @@ const int maxWordSize = 10000;
 
 int main()
 {
-    ifstream file("d:\\file.txt");
+    char fileName[maxWordSize];
+    cout << "Enter file name: ";
+    cin >> fileName;
+
+    ifstream file(fileName);
     char *word = new char[maxWordSize];
     int *usedCharacters = new int[maxWordSize];
+
+    if (!file.is_open())
+    {
+        cout << "File not found.";
+        int c = 0;
+        cin >> c;
+        return 0;
+    }
 
     for (file >> word; !file.eof(); file >> word)
     {
