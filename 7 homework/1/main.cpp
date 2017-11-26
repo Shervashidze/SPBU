@@ -75,4 +75,6 @@ int main()
 {
     BinarySearchTree *tree = createTree();
     menu(tree);
+    delete tree;
+    tree = nullptr;
 }
