@@ -37,7 +37,7 @@ int pop(Stack *stack)
    {
        return -17;
    }
-   StackElement *temp = new StackElement;
+   StackElement *temp = nullptr;
    temp = stack->head;
    int value = temp->value;
 
