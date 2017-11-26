@@ -37,7 +37,7 @@ char pop(Stack *stack)
    {
        return -17;
    }
-   StackElement *temp = new StackElement;
+   StackElement *temp = nullptr;
    temp = stack->head;
    char value = temp->value;
 
