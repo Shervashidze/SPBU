@@ -12,8 +12,8 @@ int main()
     cout << "Eneter m: ";
     cin >> m;
 
-    List *list = init(1);
-    for (int i = 2; i <= n; i++)
+    List *list = create();
+    for (int i = 1; i <= n; i++)
         addElement(list, i);
 
     move(list, n - 1);
@@ -25,4 +25,6 @@ int main()
 
     cout << "Answer: " << deleteNextElement(list);
     emptyMemory(list);
+    delete list;
+    list = nullptr;
 }
