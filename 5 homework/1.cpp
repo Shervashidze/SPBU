@@ -33,6 +33,13 @@ int main()
     double number = 0.0;
     cout << "Enter the number: ";
     cin >> number;
+
+    if (number == 0)
+    {
+        cout << "0.0";
+        return 0;
+    }
+
     cout.precision(25);
     cout << "Result: " << sign(number) << mantissa(number) << "*2^" << power(number);
     return 0;
