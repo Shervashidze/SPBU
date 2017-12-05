@@ -22,7 +22,7 @@ int *bits(int number)
 
 int *sum(int *firstBits, int *secondBits)
 {
-    int *sum = new int[32];
+    int *sum = new int[numberOfBits];
     int addition = 0;
     for (int i = 0; i < numberOfBits; i++)
     {
