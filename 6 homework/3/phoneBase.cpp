@@ -108,7 +108,6 @@ void addFromFile(List *list)
     {
         int numberOfElements = 0;
         file >> numberOfElements;
-        file.ignore();
         for (int i = 0; i < numberOfElements; i++)
         {
             char *name = new char[maxSize];
