@@ -77,7 +77,7 @@ ListElement *getElement(List *list, int position)
     return temp;
 }
 
-void deleteElem(List *list, int position)
+void skipElement(List *list, int position)
 {
     ListElement *temp = list->head;
     for (int i = 1; i < position - 1; i++)
@@ -93,7 +93,7 @@ void sort(List *list)
         ListElement *posElem = list->head;
         if (temp->value < list->head->value)
         {
-            deleteElem(list, i);
+            skipElement(list, i);
             temp->next = list->head;
             list->head = temp;
             continue;
@@ -109,7 +109,7 @@ void sort(List *list)
 
         if (posElem->next != temp)
         {
-            deleteElem(list, i);
+            skipElement(list, i);
             ListElement *switcher = posElem->next;
             posElem->next = temp;
             temp->next = switcher;
