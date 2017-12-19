@@ -84,7 +84,7 @@ BSTNode* balance(BSTNode* node)
 void clearTree(BinarySearchTree *tree)
 {
     clearNode(tree->root);
-    tree->root = nullptr;
+    delete tree;
 }
 
 bool containsNode(BSTNode *node, int value)
@@ -221,6 +221,7 @@ void printNode(BSTNode *node)
 void print(BinarySearchTree *tree)
 {
     printNode(tree->root);
+    std::cout << '\n';
 }
 
 void desPrintNode(BSTNode *node)
@@ -236,6 +237,7 @@ void desPrintNode(BSTNode *node)
 void descendingPrint(BinarySearchTree *tree)
 {
     desPrintNode(tree->root);
+    std::cout << '\n';
 }
 
 void errorPrintNode(BSTNode *node)
@@ -255,4 +257,5 @@ void errorPrintNode(BSTNode *node)
 void errorSearchPrint(BinarySearchTree *tree)
 {
     errorPrintNode(tree->root);
+    std::cout << '\n';
 }
