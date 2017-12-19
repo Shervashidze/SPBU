@@ -5,48 +5,68 @@ using namespace std;
 
 const int maxSize = 10000;
 
-void menu(List *list)
+void printMenu()
 {
-    int choose = 0;
     cout << "Enter 0 to exit.\n";
     cout << "Enter 1 to add.\n";
     cout << "Enter 2 to find telephone by name.\n";
     cout << "Enter 3 to find name by telephone.\n";
     cout << "Enter 4 to save.\n";
+}
+
+void processUserInput(List *list)
+{
+    printMenu();
+
+    enum choices {end, addition, findByTelephone, findByName, saveInFile};
+    int choose = 0;
     cin >> choose;
-
-    if (choose == 0)
-        return;
-    if (choose == 1)
+    while (choose != end)
     {
         char *name = new char[maxSize];
-        cout << "Enter name: ";
-        cin >> name;
         char *telephone = new char[maxSize];
-        cout << "Enter telephone: ";
-        cin >> telephone;
-        add(list, name, telephone);
-    }
-    if (choose == 2)
-    {
-        char *name = new char[maxSize];
-        cout << "Enter name: ";
-        cin >> name;
-        findTelephone(list, name);
+        switch (choose)
+        {
+            case end:
+                return;
+                break;
+
+            case addition:
+                cout << "Enter name: ";
+                cin >> name;
+                cout << "Enter telephone: ";
+                cin >> telephone;
+                add(list, name, telephone);
+                break;
+
+            case findByTelephone:
+                cout << "Enter name: ";
+                cin >> name;
+                cout << "Name: ";
+                findTelephone(list, name);
+                break;
+
+            case findByName:
+                cout << "Enter telephone: ";
+                cin >> telephone;
+                cout << "Telephone: ";
+                findName(list, telephone);
+                break;
+
+            case saveInFile:
+                save(list);
+                break;
+
+            default:
+                cout << "Unknown comand.";
+                break;
+        }
+
         delete[] name;
-    }
-    if (choose == 3)
-    {
-        char *telephone = new char[maxSize];
-        cout << "Enter telephone: ";
-        cin >> telephone;
-        findName(list, telephone);
         delete[] telephone;
+        cin >> choose;
     }
-    if (choose == 4)
-        save(list);
 
-    menu(list);
 }
 
 int main()
@@ -58,7 +78,7 @@ int main()
     cin >> choose;
     if (choose == 1)
         addFromFile(list);
-    menu(list);
+
+    processUserInput(list);
     emptyMemory(list);
-    delete list;
 }

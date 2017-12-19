@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int maxSize = 100000;
+const int maxSize = 10000;
 
 struct ListElement
 {
@@ -35,7 +35,7 @@ bool isEmpty(List *list)
 bool isEqual(char *firstLine, char *secondLine)
 {
     int counter = 0;
-    while (firstLine[counter] != '\0')
+    while (firstLine[counter] != '\0' && secondLine[counter] != '\0')
     {
         if (firstLine[counter] != secondLine[counter])
             return false;
@@ -45,12 +45,25 @@ bool isEqual(char *firstLine, char *secondLine)
     return firstLine[counter] == secondLine[counter];
 }
 
+char *makeChar(char *line)
+{
+    char *newChar = new char[maxSize];
+    int counter = 0;
+    while (line[counter] != '\0')
+    {
+        newChar[counter] = line[counter];
+        counter++;
+    }
+    newChar[counter] = '\0';
+    return newChar;
+}
+
 void add(List *list, char *name, char *telephone)
 {
     list->numbeOfElements++;
     ListElement *newElement = new ListElement;
-    newElement->name = name;
-    newElement->telephone = telephone;
+    newElement->name = makeChar(name);
+    newElement->telephone = makeChar(telephone);
     newElement->next = nullptr;
 
     if (list->head == nullptr)
@@ -69,7 +82,7 @@ void add(List *list, char *name, char *telephone)
 void findTelephone(List *list, char *name)
 {
     ListElement *temp = list->head;
-    while (!isEmpty(list))
+    while (temp != nullptr)
     {
         if (isEqual(temp->name, name))
         {
@@ -159,4 +172,5 @@ void emptyMemory(List *list)
         delete[] temp->telephone;
         delete temp;
     }
+    delete list;
 }
