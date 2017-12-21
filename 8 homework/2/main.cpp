@@ -12,7 +12,7 @@ void isEqualCorrect()
     if (isEqual(firstString, secondString))
         cout << "isEqual correct.\n";
     else
-        cout << "Problems with isEqual.";
+        cout << "Problems with isEqual.\n";
     deleteString(firstString);
     deleteString(secondString);
 }
