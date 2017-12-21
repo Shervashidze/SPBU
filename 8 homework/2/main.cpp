@@ -59,6 +59,9 @@ void isSubStringCorrect()
         cout << "SubString correct.\n";
     else
         cout << "Problems with subString.\n";
+    deleteString(aString);
+    deleteString(bString);
+    deleteString(sub);
 }
 
 void test()
