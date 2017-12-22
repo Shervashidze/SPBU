@@ -37,6 +37,7 @@ void printBFS(int **matrix, int length)
         }
     }
 
+    delete[] used;
     emptyMemory(stack);
 }
 
