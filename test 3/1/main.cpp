@@ -46,7 +46,7 @@ int main()
 
    int *array = new int[length];
    cout << "Enter elements: ";
-   for (int i = 0; i < length; i ++)
+   for (int i = 0; i < length; i++)
        cin >> array[i];
 
    BinarySearchTree *elements = findElements(array, length);
