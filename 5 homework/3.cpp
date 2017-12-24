@@ -80,6 +80,10 @@ void processIndex(int i, int array[], char upperString[], char lowerString[], in
     addInString(lowerString, upperString, power, index, length, i);
 
     power--;
+
+    if (power == 0)
+        addChars(upperString, lowerString, ' ', ' ', index);
+
     addChars(upperString, lowerString, ' ', '+', index);
     addChars(upperString, lowerString, ' ', ' ', index);
 }
@@ -99,7 +103,7 @@ void printPolynomial(int array[], int length)
     if (array[length - 1] != 0)
         lowerString[index - 3] = ' ';
 
-    lowerString[index - 2] = '\0';
+    upperString[index - 2] = '\0';
     lowerString[index - 2] = '\0';
     cout << upperString << '\n';
     cout << lowerString << '\n';
