@@ -118,7 +118,7 @@ void printMax(HashTable *hashTable)
         Element *temp = hashTable->elements[i];
         while (temp != nullptr)
         {
-            current++;
+            current += temp->amount;
             temp = temp->nextElement;
         }
         if (current > maxValue)
