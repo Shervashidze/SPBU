@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-const int hashSize = 10009;
+const int hashSize = 1009;
 const int power = 17;
 
 struct Element
@@ -14,13 +14,18 @@ struct Element
 
 struct HashTable
 {
-    int size = hashSize;
+    int size;
+    int addedWords;
+    int notEmtyElements;
     Element **elements;
 };
 
 HashTable *createTable()
 {
     HashTable *newTable = new HashTable;
+    newTable->size = hashSize;
+    newTable->addedWords = 0;
+    newTable->notEmtyElements = 0;
 
     newTable->elements = new Element*[newTable->size];
     for (int i = 0; i < newTable->size; i++)
@@ -47,8 +52,12 @@ int hash(String *string)
 void add(HashTable *hashTable, String *string)
 {
     int index = hash(string);
+    hashTable->addedWords++;
 
     Element *temp = hashTable->elements[index];
+    if (temp == nullptr)
+        hashTable->notEmtyElements++;
+
     while (temp != nullptr)
     {
         if (isEqual(temp->string, string))
@@ -67,59 +76,25 @@ void add(HashTable *hashTable, String *string)
     hashTable->elements[index] = newElement;
 }
 
-bool contains(HashTable *hashTable, String *string)
-{
-    int index = hash(string);
-
-    Element *temp = hashTable->elements[index];
-    while (temp != nullptr)
-    {
-        if (isEqual(temp->string, string))
-            return true;
-        temp = temp->nextElement;
-    }
-    return false;
-}
-
-
 int numberOfElements(HashTable *hashTable)
 {
-    int result = 0;
-    for (int i = 0; i < hashTable->size; i++)
-    {
-        Element *temp = hashTable->elements[i];
-        while (temp != nullptr)
-        {
-            result++;
-            temp = temp->nextElement;
-        }
-    }
-    return result;
+    return hashTable->notEmtyElements;
 }
 
 int numberOfWords(HashTable *hashTable)
 {
-    int result = 0;
-    for (int i = 0; i < hashTable->size; i++)
-    {
-        Element *temp = hashTable->elements[i];
-        while (temp != nullptr)
-        {
-            result += temp->amount;
-            temp = temp->nextElement;
-        }
-    }
-
-    return result;
+    return hashTable->addedWords;
 }
 
 void printElement(HashTable *hashTable, int number)
 {
     Element *temp = hashTable->elements[number];
+    if (temp != nullptr)
+        std::cout << number << ": ";
     while (temp != nullptr)
     {
         char *line = toChar(temp->string);
-        std::cout << number << ": " << line << " - " <<  hashTable->elements[number]->amount << ' ';
+        std::cout << line << " - " <<  hashTable->elements[number]->amount << "; ";
         delete[] line;
         temp = temp->nextElement;
     }
@@ -157,12 +132,7 @@ void printMax(HashTable *hashTable)
 
 int numberOfEmptyElements(HashTable *hashTable)
 {
-    int result = 0;
-    for (int i = 0; i < hashTable->size; i++)
-        if(hashTable->elements[i] == nullptr)
-            result++;
-
-    return result;
+    return hashTable->size - hashTable->notEmtyElements;
 }
 
 double loadFactor(HashTable *hashTable)
@@ -187,4 +157,26 @@ void deleteTable(HashTable *hashTable)
 
     delete[] hashTable->elements;
     delete hashTable;
+}
+
+double averageLength(HashTable *hashTable)
+{
+    int answer = 0;
+    for (int i = 0; i < hashTable->size; i++)
+    {
+        if (hashTable->elements[i] != nullptr)
+        {
+            int counter = 0;
+            Element *temp = hashTable->elements[i];
+            while (temp != nullptr)
+            {
+                counter++;
+                temp = temp->nextElement;
+            }
+
+            answer += counter;
+        }
+    }
+
+    return (double) answer / hashTable->notEmtyElements;
 }

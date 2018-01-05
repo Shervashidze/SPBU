@@ -41,6 +41,7 @@ int main()
     printMax(hashTable);
     cout << "Number of added words: " << numberOfWords(hashTable) << '\n';
     cout << "Number of empty elements: " << numberOfEmptyElements(hashTable) << '\n';
+    cout << "Average chain length: " << averageLength(hashTable);
 
     deleteTable(hashTable);
 
