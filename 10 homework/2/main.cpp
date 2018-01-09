@@ -4,10 +4,10 @@
 using namespace std;
 
 const int maxSize = 100000;
-const int mod = 10007;
+const int mod = 1009;
 const int prime = 17;
 
-int findHash(String *string)
+int getHash(String *string)
 {
     int result = 0;
     for (int i = 0; i < stringLength(string); i++)
@@ -16,20 +16,22 @@ int findHash(String *string)
     return result;
 }
 
-void printConcurrences(String *string, String *wanted, int start)
+void getEntrances(String *string, String *wanted, int *indexes)
 {
-    if (start + stringLength(wanted) > stringLength(string))
+    if (stringLength(wanted) > stringLength(string))
         return;
 
-    int subHash = findHash(wanted);
+    int start = 0;
+    int subHash = getHash(wanted);
     String *firstSlice = subString(string, start, start + stringLength(wanted) - 1);
-    int currentHash = findHash(firstSlice);
+    int currentHash = getHash(firstSlice);
     deleteString(firstSlice);
 
     int power = 1;
     for (int i = 1; i < stringLength(wanted); i++)
         power = (power * prime) % mod;
 
+    int counter = 0;
     for (int i = start; i <= stringLength(string) - stringLength(wanted); i++)
     {
         if (currentHash == subHash)
@@ -38,12 +40,12 @@ void printConcurrences(String *string, String *wanted, int start)
             if (isEqual(wanted, slice))
             {
                 deleteString(slice);
-                cout << i << ' ';
+                indexes[counter] = i + 1;
+                counter++;
             }
             deleteString(slice);
         }
-        if (i + stringLength(wanted) < stringLength(string))
-            currentHash = (((((currentHash - ((int) getChar(string, i)) * power) % mod + mod) % mod) * prime) % mod+ getChar(string, i + stringLength(wanted))) % mod;
+        currentHash = (((((currentHash - ((int) getChar(string, i)) * power) % mod + mod) % mod) * prime) % mod + getChar(string, i + stringLength(wanted))) % mod;
     }
 }
 
@@ -58,9 +60,26 @@ int main()
     cin >> word;
     String *subString = createString(word);
 
-    cout << "Substrings first indexes: ";
-    printConcurrences(string, subString, 0);
+    int indexes[maxSize];
+    for (int i = 0; i < maxSize; i++)
+        indexes[i] = -1;
+    getEntrances(string, subString, indexes);
 
+    int counter = 0;
+    if (indexes[counter] == -1)
+    {
+        cout << "There is no Entrances.";
+        return 0;
+    }
+
+    cout << "Substrings first indexes: ";
+    while (indexes[counter] != -1)
+    {
+        cout << indexes[counter] << ' ';
+        counter++;
+    }
     deleteString(string);
     deleteString(subString);
+
+    return 0;
 }
