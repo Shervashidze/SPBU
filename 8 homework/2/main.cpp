@@ -45,7 +45,7 @@ void isCloneCorrect()
     else
         cout << "Problems with clone.\n";
     deleteString(aString);
-    deleteString(aString);
+    deleteString(cloned);
 }
 
 void isSubStringCorrect()
