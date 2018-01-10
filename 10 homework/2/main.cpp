@@ -39,13 +39,13 @@ void getEntrances(String *string, String *wanted, int *indexes)
             String *slice = subString(string, i, i + stringLength(wanted) - 1);
             if (isEqual(wanted, slice))
             {
-                deleteString(slice);
                 indexes[counter] = i + 1;
                 counter++;
             }
             deleteString(slice);
         }
-        currentHash = (((((currentHash - ((int) getChar(string, i)) * power) % mod + mod) % mod) * prime) % mod + getChar(string, i + stringLength(wanted))) % mod;
+        currentHash = (((((currentHash - ((int) getChar(string, i)) * power) % mod + mod) % mod) * prime) % mod
+                      + getChar(string, i + stringLength(wanted))) % mod;
     }
 }
 
