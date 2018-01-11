@@ -40,6 +40,7 @@ void addInList(List *list, String *value)
         if (isEqual(temp->value, value))
         {
             temp->amount++;
+            deleteString(value);
             return;
         }
         temp = temp->next;
