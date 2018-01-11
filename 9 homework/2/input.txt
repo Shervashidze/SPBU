@@ -1,1 +1,2 @@
-empty spaces what are we living for?
+this is 1 line
+and this is second.

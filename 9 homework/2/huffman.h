@@ -15,4 +15,3 @@ void deleteHuffmanCode(HuffmanCode *huffmanCode);
 void printHuffmanTree(HuffmanCode *huffmanCode, std::ofstream &stream);
 HuffmanCode *encode(String *string);
 String *getCode(HuffmanCode *huffmanCode, char symbol);
-void decode(std::istream &input, std::ostream &output);

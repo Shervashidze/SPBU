@@ -22,16 +22,20 @@ int main()
         return 0;
     }
 
+    char slashN[2] = {"\n"};
+    String *separator = createString(slashN);
     char *buffer = new char[maxSize];
     file.getline(buffer, maxSize);
     String *line = createString(buffer);
     while (!file.eof())
     {
+        concatenation(line, separator);
         file.getline(buffer, maxSize);
         String *newLine = createString(buffer);
         concatenation(line, newLine);
         deleteString(newLine);
     }
+    deleteString(separator);
     delete[] buffer;
     file.close();
 
