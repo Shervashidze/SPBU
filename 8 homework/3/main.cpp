@@ -25,13 +25,14 @@ int main()
 
     HashTable *hashTable = createTable();
 
-    char word[maxSize];
+    char *word = new char[maxSize];
     while (!file.eof())
     {
         file >> word;
         String *newLine = createString(word);
         add(hashTable, newLine);
     }
+    delete[] word;
     file.close();
 
     cout << "Hashtable Elements:" << '\n';
