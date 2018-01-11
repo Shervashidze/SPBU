@@ -78,14 +78,14 @@ void emptyMemory(List *list)
 void print(List *list)
 {
     ListElement *temp = list->head;
-    char *buff = new char[maxSize];
+    char *buff = nullptr;
     while (temp != nullptr)
     {
         buff = toChar(temp->value);
         cout << buff << " - " << temp->amount << ' ';
         temp = temp->next;
+        delete[] buff;
     }
-    delete[] buff;
     cout << '\n';
 }
 
