@@ -72,5 +72,4 @@ int main()
         }
         cin >> choice;
     }
-    clearTree(tree);
 }

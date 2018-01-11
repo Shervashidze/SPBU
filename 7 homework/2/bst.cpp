@@ -4,7 +4,7 @@
 struct BSTNode
 {
     int value;
-    unsigned char height;
+    int height;
     BSTNode *left;
     BSTNode *right;
 };
@@ -26,9 +26,9 @@ void clearNode(BSTNode *node)
     delete node;
 }
 
-unsigned char height(BSTNode* node)
+int height(BSTNode* node)
 {
-    return node ? node->height : 0;
+    return (node == nullptr ? 0 : node->height);
 }
 
 int bfactor(BSTNode* node)
@@ -38,47 +38,47 @@ int bfactor(BSTNode* node)
 
 void fixheight(BSTNode* node)
 {
-    unsigned char left = height(node->left);
-    unsigned char right = height(node->right);
+    int left = height(node->left);
+    int right = height(node->right);
     node->height = (left > right ? left : right) + 1;
 }
 
-BSTNode* rotateright(BSTNode* node)
+void rotateright(BSTNode *&node)
 {
     BSTNode* temp = node->left;
     node->left = temp->right;
     temp->right = node;
     fixheight(node);
     fixheight(temp);
-    return temp;
+    node = temp;
 }
 
-BSTNode* rotateleft(BSTNode* node)
+void rotateleft(BSTNode *&node)
 {
     BSTNode* temp = node->right;
     node->right = temp->left;
     temp->left = node;
     fixheight(node);
     fixheight(temp);
-    return temp;
+    node = temp;
 }
 
-BSTNode* balance(BSTNode* node)
+void balance(BSTNode *&node)
 {
     fixheight(node);
-    if( bfactor(node)==2 )
+    int balanceFavtor = bfactor(node);
+    if (balanceFavtor == 2)
     {
-        if( bfactor(node->right) < 0 )
-            node->right = rotateright(node->right);
-        return rotateleft(node);
+        if (bfactor(node->right) < 0)
+            rotateright(node->right);
+        rotateleft(node);
     }
-    if( bfactor(node)==-2 )
+    else if (balanceFavtor == -2)
     {
-        if( bfactor(node->left) > 0  )
-            node->left = rotateleft(node->left);
-        return rotateright(node);
+        if (bfactor(node->left) > 0)
+            rotateleft(node->left);
+        rotateright(node);
     }
-    return node;
 }
 
 void clearTree(BinarySearchTree *tree)
@@ -120,25 +120,21 @@ bool addNode(BSTNode *&node, int value)
     if (node == nullptr)
     {
         node = createNode(value);
-        node = balance(node);
+        balance(node);
         return true;
     }
 
     if (node->value == value)
         return false;
 
+    bool answer = false;
     if (value < node->value)
-    {
-        bool answer = addNode(node->left, value);
-        node = balance(node);
-        return answer;
-    }
+        answer = addNode(node->left, value);
     else
-    {
-        bool answer = addNode(node->right, value);
-        node = balance(node);
-        return answer;
-    }
+        answer = addNode(node->right, value);
+
+    balance(node);
+    return answer;
 }
 
 bool add(BinarySearchTree *tree, int value)
@@ -153,10 +149,10 @@ BSTNode *findMax(BSTNode *node)
     return node;
 }
 
-bool removeNode(BSTNode *&node, int value)
+void removeNode(BSTNode *&node, int value)
 {
     if (node == nullptr)
-        return false;
+        return;
 
     if (node->value == value)
     {
@@ -170,42 +166,35 @@ bool removeNode(BSTNode *&node, int value)
             BSTNode *temp = node->right;
             delete node;
             node = temp;
-            node = balance(node);
         }
         else if (node->right == nullptr)
         {
             BSTNode *temp = node->left;
             delete node;
             node = temp;
-            node = balance(node);
         }
         else
         {
             BSTNode *maxNode = findMax(node->left);
             int maxValue = maxNode->value;
-            removeNode(node, maxValue);
+            removeNode(node->left, maxValue);
             node->value = maxValue;
+            balance(node);
         }
-        return true;
+        return;
     }
 
     if (value < node->value)
-    {
-        bool answer = removeNode(node->left, value);
-        node = balance(node);
-        return answer;
-    }
+        removeNode(node->left, value);
     else
-    {
-        bool answer = removeNode(node->right, value);
-        node = balance(node);
-        return answer;
-    }
+        removeNode(node->right, value);
+    balance(node);
 }
 
-bool remove(BinarySearchTree *tree, int value)
+void remove(BinarySearchTree *tree, int value)
 {
-    return removeNode(tree->root, value);
+    if (contains(tree, value))
+        removeNode(tree->root, value);
 }
 
 void printNode(BSTNode *node)
