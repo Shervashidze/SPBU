@@ -7,10 +7,10 @@ const int maxSize = 100000;
 const int mod = 1009;
 const int prime = 17;
 
-int getHash(String *string)
+int getHash(String *string, int start, int end)
 {
     int result = 0;
-    for (int i = 0; i < stringLength(string); i++)
+    for (int i = start; i < end; i++)
         result = ((result * prime) % mod + (int) getChar(string, i)) % mod;
 
     return result;
@@ -22,10 +22,8 @@ void getEntrances(String *string, String *wanted, int *indexes)
         return;
 
     int start = 0;
-    int subHash = getHash(wanted);
-    String *firstSlice = subString(string, start, start + stringLength(wanted) - 1);
-    int currentHash = getHash(firstSlice);
-    deleteString(firstSlice);
+    int subHash = getHash(wanted, 0, stringLength(wanted));
+    int currentHash = getHash(string, 0, stringLength(wanted));
 
     int power = 1;
     for (int i = 1; i < stringLength(wanted); i++)
