@@ -22,10 +22,17 @@ int main()
         return 0;
     }
 
-    char *temp = new char[maxSize];
-    file.getline(temp, maxSize);
-    String *line = createString(temp);
-    delete[] temp;
+    char *buffer = new char[maxSize];
+    file.getline(buffer, maxSize);
+    String *line = createString(buffer);
+    while (!file.eof())
+    {
+        file.getline(buffer, maxSize);
+        String *newLine = createString(buffer);
+        concatenation(line, newLine);
+        deleteString(newLine);
+    }
+    delete[] buffer;
     file.close();
 
     HuffmanCode *huffmanCode = encode(line);
