@@ -37,7 +37,7 @@ int main()
     cout << "Hashtable Elements:" << '\n';
     printAll(hashTable);
     cout << "Load factor: " << loadFactor(hashTable) << '\n';
-    cout << "Maximal Element: " << '\n';
+    cout << "Maximal Element - ";
     printMax(hashTable);
     cout << "Number of added words: " << numberOfWords(hashTable) << '\n';
     cout << "Number of empty elements: " << numberOfEmptyElements(hashTable) << '\n';
