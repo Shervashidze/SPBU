@@ -34,7 +34,8 @@ public class PriorityQueue<T> {
      * Adds value in queue.
      * Queue sorted by elements priorities.
      *
-     * @param value(type T) and it's priority.
+     * @param value(type T) that will be stored int the queue.
+     * @param position(type int) that shows the priority of the value.
      */
     public void enqueue(T value, int position) {
         if (isEmpty()) {
