@@ -1,24 +1,6 @@
 package group144.shervashidze;
 
 public class Stack {
-    private class Element {
-        private int value;
-        private Element next;
-
-        Element(int value, Element next) {
-            this.value = value;
-            this.next = next;
-        }
-
-        int getValue() {
-            return value;
-        }
-
-        Element getNext() {
-            return next;
-        }
-    }
-
     private Element head = null;
     private int length = 0;
 
@@ -35,8 +17,8 @@ public class Stack {
         if (isEmpty()){
             return 42;
         }
-        int result = head.getValue();
-        head = head.getNext();
+        int result = head.value;
+        head = head.next;
         length -= 1;
         return result;
     }
@@ -45,10 +27,20 @@ public class Stack {
         if (isEmpty()){
             return 42;
         }
-        return head.getValue();
+        return head.value;
     }
 
     public int getLength() {
         return length;
+    }
+
+    private class Element {
+        private int value;
+        private Element next;
+
+        Element(int value, Element next) {
+            this.value = value;
+            this.next = next;
+        }
     }
 }
