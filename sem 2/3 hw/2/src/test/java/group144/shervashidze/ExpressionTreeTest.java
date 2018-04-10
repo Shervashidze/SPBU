@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class ExpressionTreeTest {
     @Test
-    public void calculate(){
+    public void calculate() {
         ExpressionTree tree = null;
         try {
             tree = new ExpressionTree(new Scanner("(+ 11 (/ (* 2 6) 3))"));
