@@ -11,7 +11,7 @@ public class ExpressionTree {
      * @param in - stream to take from.
      * @throws WrongTreeException when expression tree has issues.
      *
-     * Creates operation nod and place it in the head.
+     * Creates operation node and place it in the head.
      */
     ExpressionTree(Scanner in) throws WrongTreeException {
         head = new OperationNode(in);
