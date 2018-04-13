@@ -84,7 +84,8 @@ public class Trie implements Serializable {
             }
         }
 
-        return false;
+        temp.isWord = false;
+        return true;
     }
 
     /**
