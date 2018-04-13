@@ -69,17 +69,35 @@ public class TrieTest {
     }
 
     @Test
-    public void serializeAndDeserialize() throws IOException {
+    public void serialize() throws IOException {
         File file = new File("IHopeThereWontBeTHisName.txt");
-        FileWriter writer = new FileWriter(file);
-        writer.write("a b c d aa aaaa aaaas and");
-        writer.close();
-        trie.deserialize(new FileInputStream("IHopeThereWontBeTHisName.txt"));
+        FileOutputStream out = new FileOutputStream(file);
+        Serialize.serialize(trie, out);
+    }
 
+    @Test
+    public void deserialize() throws IOException, ClassNotFoundException {
+        Serialize.serialize(trie, new FileOutputStream(new File("TestDeserializeFile.txt")));
+        FileInputStream in = new FileInputStream("TestDeserializeFile.txt");
+        Trie newOne = (Trie) Serialize.deserialize(in);
+        OutputStream trieStream = new ByteArrayOutputStream();
+        OutputStream newOneStream = new ByteArrayOutputStream();
+        trie.print(trieStream);
+        newOne.print(newOneStream);
+        assertEquals(trieStream.toString(), newOneStream.toString());
+    }
+
+    @Test
+    public void print() {
+        Trie test = new Trie();
+        test.add("aaa");
+        test.add("aaaa");
+        test.add("aaab");
+        test.add("a");
+        test.add("b");
+        test.add("d");
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        trie.serialize(out);
-        file.delete();
-        assertEquals("Amount of elements: 8\n" +
-                "Elements: a aa aaaa aaaas and b c d ", out.toString());
+        test.print(out);
+        assertEquals("a aaa aaaa aaab b d ", out.toString());
     }
 }

@@ -2,13 +2,12 @@ package group144.shervashidze;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Trie.
  * Stores strings.
  */
-public class Trie {
+public class Trie implements Serializable {
     private Element root;
 
     /**
@@ -139,18 +138,8 @@ public class Trie {
         return temp.startWith;
     }
 
-    /**
-     * Serialize.
-     *
-     * @param out stream to write trie in.
-     * @throws IOException when we cant write there.
-     * Writes. Amount of elements: (int)\n + Elements: string1 string2 ...
-     */
-    public void serialize(OutputStream out) throws IOException {
-        PrintStream printStream = new PrintStream(out);
-        printStream.print("Amount of elements: " + root.startWith + "\n");
-        printStream.print("Elements: ");
-        print(root, printStream);
+    public void print(OutputStream out) {
+        print(root, new PrintStream(out));
     }
 
     /**
@@ -167,23 +156,6 @@ public class Trie {
         }
         for (Element element1 : element.children.values()) {
             print(element1, out);
-        }
-    }
-
-    /**
-     * Deserialize.
-     * Destroying old tire and creates new one. Adding all words(separated by " ") from input stream.
-     *
-     * @param in - stream to take words.
-     * @throws IOException when we cant do this.
-     */
-    public void deserialize(InputStream in) throws IOException {
-        root = new Element();
-        Scanner s = new Scanner(in).useDelimiter("\\A");
-        String result = s.hasNext() ? s.next() : "";
-        String[] words = result.split(" ");
-        for (String word : words) {
-            this.add(word);
         }
     }
 
@@ -211,7 +183,7 @@ public class Trie {
      * isWord - true when values of all previous edges form a word, false otherwise.
      * startWith - amount of the words, which starts with text as prefix.
      */
-    private class Element {
+    private class Element implements Serializable {
         private String text;
         private HashMap<Character, Element> children;
         boolean isWord;
