@@ -11,7 +11,7 @@ public class HashTableTest {
         table.add("aloha");
         table.add("aloha");
         table.add("nah");
-        assertEquals(2,table.countElements());
+        assertEquals(2, table.countElements());
     }
 
     @Test
@@ -19,7 +19,7 @@ public class HashTableTest {
         HashTable table = new HashTable(new SumHash(42));
         table.add("Salvation");
         table.remove("HaHa");
-        assertEquals(1,table.countElements());
+        assertEquals(1, table.countElements());
     }
 
     @Test
@@ -28,14 +28,14 @@ public class HashTableTest {
         table.add("Smthing");
         table.add("Salvation");
         table.remove("Salvation");
-        assertEquals(1,table.countElements());
+        assertEquals(1, table.countElements());
     }
 
     @Test
     public void find() {
         HashTable table = new HashTable(new PolynomialHash(2, 42));
         table.add("((");
-        assertEquals(36,table.find("(("));
+        assertEquals(36, table.find("(("));
     }
 
     @Test
