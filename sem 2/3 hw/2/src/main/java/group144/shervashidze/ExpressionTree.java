@@ -3,6 +3,11 @@ package group144.shervashidze;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Expression Tree.
+ *
+ * contains at least 1 common element(operation node).
+ */
 public class ExpressionTree {
     private ExpressionTreeNode head;
 

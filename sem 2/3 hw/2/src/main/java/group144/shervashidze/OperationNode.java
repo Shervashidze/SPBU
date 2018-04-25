@@ -4,6 +4,11 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * Operation Node.
+ *
+ * Common Element of Expression tree(contains operation and 2 elements of expression tree).
+ */
 public class OperationNode implements ExpressionTreeNode {
     private char operation;
     private ExpressionTreeNode left;

@@ -3,6 +3,11 @@ package group144.shervashidze;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Number node.
+ *
+ * Corner element of the Expression Tree(contains only value).
+ */
 public class NumberNode implements ExpressionTreeNode {
     private int value;
 
