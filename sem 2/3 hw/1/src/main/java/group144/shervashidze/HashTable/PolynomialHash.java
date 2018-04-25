@@ -1,5 +1,8 @@
 package group144.shervashidze.HashTable;
 
+/**
+ * Polynomial hash.
+ */
 public class PolynomialHash implements HashFunction {
     private int power;
     private int mod;

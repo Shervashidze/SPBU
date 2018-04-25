@@ -3,6 +3,11 @@ package group144.shervashidze.HashTable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Hash table.
+ *
+ * Stores strings.
+ */
 public class HashTable {
     private HashFunction hashFunction;
     private ArrayList<LinkedList<String>> elements;
@@ -63,7 +68,7 @@ public class HashTable {
      */
     public String getStatistics() {
         int amount = countElements();
-        int empty = CountEmptyRows();
+        int empty = countEmptyRows();
 
         int maxChainLength = 0;
         for (LinkedList<String> row : elements)
@@ -79,14 +84,14 @@ public class HashTable {
         String elements = String.format("Amount of elements: %d", amount);
         String emptyRows = String.format("Amount of empty rows: %d", empty);
         String maxLength = String.format("Max chain length: %d", maxChainLength);
-        return String.join("\n", elements, emptyRows, loadFactorInfo, conflicts, maxLength, "\n");
+        return String.join("\n", elements, emptyRows, loadFactorInfo, conflicts, maxLength, "");
     }
 
     /**
      *
      * @return amount of empty rows.
      */
-    private int CountEmptyRows() {
+    private int countEmptyRows() {
         int result = 0;
         for (LinkedList<String> row : elements)
             if (row.size() == 0)
@@ -98,21 +103,19 @@ public class HashTable {
      *
      * @param newFunction - new Hash function to switch in.
      */
-    public void switchHash(HashFunction newFunction){
-        ArrayList<LinkedList<String>> newElements = new ArrayList<>(newFunction.getMod());
+    public void switchHash(HashFunction newFunction) {
+        ArrayList<LinkedList<String>> oldElements = elements;
+        elements = new ArrayList<>(newFunction.getMod());
+        hashFunction = newFunction;
         for (int i = 0; i < newFunction.getMod(); i++) {
-            newElements.add(new LinkedList<>());
+            elements.add(new LinkedList<>());
         }
 
-        for (LinkedList<String> row : elements) {
+        for (LinkedList<String> row : oldElements) {
             for (String value : row) {
-                int hash = newFunction.hash(value);
-                newElements.get(hash).add(value);
+                add(value);
             }
         }
-
-        hashFunction = newFunction;
-        elements = newElements;
     }
 
     /**

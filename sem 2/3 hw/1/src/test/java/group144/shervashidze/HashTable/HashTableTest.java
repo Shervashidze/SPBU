@@ -45,7 +45,7 @@ public class HashTableTest {
         table.add("aloha");
         table.add("hi");
         assertEquals("Amount of elements: 3\n" + "Amount of empty rows: 8\n" + "Load factor: 0,272727\n" +
-                "Conflicts: 0\n" + "Max chain length: 1\n" + " ", table.getStatistics());
+                "Conflicts: 0\n" + "Max chain length: 1\n", table.getStatistics());
     }
 
     @Test

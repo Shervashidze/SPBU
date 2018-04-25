@@ -1,5 +1,8 @@
 package group144.shervashidze.HashTable;
 
+/**
+ * Sum hash.
+ */
 public class SumHash implements HashFunction {
     private int mod;
 
