@@ -69,21 +69,16 @@ public class TrieTest {
     }
 
     @Test
-    public void serialize() throws IOException {
-        File file = new File("IHopeThereWontBeTHisName.txt");
-        FileOutputStream out = new FileOutputStream(file);
-        Serialize.serialize(trie, out);
-    }
-
-    @Test
-    public void deserialize() throws IOException, ClassNotFoundException {
-        Serialize.serialize(trie, new FileOutputStream(new File("TestDeserializeFile.txt")));
+    public void serialize() throws IOException, ClassNotFoundException {
+        trie.serialize(new FileOutputStream(new File("TestDeserializeFile.txt")));
         FileInputStream in = new FileInputStream("TestDeserializeFile.txt");
-        Trie newOne = (Trie) Serialize.deserialize(in);
+
         OutputStream trieStream = new ByteArrayOutputStream();
         OutputStream newOneStream = new ByteArrayOutputStream();
         trie.print(trieStream);
-        newOne.print(newOneStream);
+
+        trie.deserialize(in);
+        trie.print(newOneStream);
         assertEquals(trieStream.toString(), newOneStream.toString());
     }
 

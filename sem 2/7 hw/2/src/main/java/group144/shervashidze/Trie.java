@@ -161,6 +161,31 @@ public class Trie implements Serializable {
     }
 
     /**
+     * Serialize.
+     *
+     * @param out stream to write trie in.
+     * @throws IOException when we cant write there.
+     */
+    public void serialize(OutputStream out) throws IOException {
+        ObjectOutputStream outputStream = new ObjectOutputStream(out);
+        outputStream.writeObject(this);
+        outputStream.close();
+    }
+
+    /**
+     * Deserialize.
+     *
+     * @param in - stream to take trie.
+     * @throws IOException when we cant read this stream.
+     * @throws ClassNotFoundException when we cant find class which serialized in this stream.
+     */
+    public void deserialize(InputStream in) throws IOException, ClassNotFoundException {
+        ObjectInputStream input = new ObjectInputStream(in);
+        Trie newTrie = (Trie) input.readObject();
+        this.root = newTrie.root;
+    }
+
+    /**
      * insertChar.
      * Private method to create new child of element. Sets text of the child as text of the parent + char value
      * value also edge connecting child and parent.
