@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane hgap="10.0" xmlns="http://javafx.com/javafx/8.0.121"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="group144.shervashidze.Controllers">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="600.1"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="319.0" minHeight="15.0" prefHeight="200.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="185.0" minHeight="5.0" prefHeight="100.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+
+    <ProgressBar fx:id="progressBar" prefHeight="150.0" prefWidth="610.0" progress="0.0"/>
+
+    <Slider fx:id="slider" max="1.0" prefHeight="25.0" prefWidth="595.0" GridPane.rowIndex="1"/>
+</GridPane>
