@@ -1,20 +1,43 @@
 package group144.shervashidze;
 
 public class Calculator {
-    public int calculate(String expression) {
+    private Stack<Integer> stack;
+
+    public Calculator(Stack<Integer> newStack) {
+        stack = newStack;
+    }
+
+    public int calculate(String expression) throws WrongExpressionException {
         String[] words = expression.split(" ");
-        Stack<Integer> stack = new ListStack<Integer>();
         for (String word : words) {
             if (isNumber(word)) {
                 stack.push(Integer.parseInt(word));
             } else {
-                int secondValue = stack.pop();
-                int firstValue = stack.pop();
+                int secondValue;
+                try {
+                    secondValue = stack.pop();
+                } catch (EmptyStackException e) {
+                    throw new WrongExpressionException();
+                }
+
+                int firstValue;
+                try {
+                    firstValue = stack.pop();
+                } catch (EmptyStackException e) {
+                    throw new WrongExpressionException();
+                }
+
                 stack.push(count(firstValue, secondValue, word));
             }
         }
 
-        return stack.pop();
+        int answer = 0;
+        try {
+            answer = stack.pop();
+        } catch (EmptyStackException e) {
+            throw new WrongExpressionException();
+        }
+        return answer;
     }
 
     private Integer count(int firstValue, int secondValue, String operator) {
@@ -33,12 +56,6 @@ public class Calculator {
     }
 
     private boolean isNumber(String string) {
-        for (int i = 1; i < string.length(); i++) {
-            if (!Character.isDigit(string.charAt(i))) {
-                return false;
-            }
-        }
-
-        return Character.isDigit(string.charAt(0)) || (string.charAt(0) == '-' && string.length() > 1);
+        return string.matches("[-]?[0-9]+");
     }
 }

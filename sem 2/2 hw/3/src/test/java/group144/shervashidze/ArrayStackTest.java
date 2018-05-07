@@ -9,7 +9,7 @@ import java.util.EmptyStackException;
 public class ArrayStackTest {
 
     @Test
-    public void push() {
+    public void push() throws group144.shervashidze.EmptyStackException {
         Stack<Integer> stack = new ArrayStack<Integer>();
         stack.push(42);
         stack.push(33);
@@ -20,8 +20,8 @@ public class ArrayStackTest {
         assertEquals(42 ,b);
     }
 
-    @Test(expected = EmptyStackException.class)
-    public void popEmpty() {
+    @Test(expected = group144.shervashidze.EmptyStackException.class)
+    public void popEmpty() throws group144.shervashidze.EmptyStackException {
         Stack<Integer> stack = new ArrayStack<Integer>();
         stack.push(42);
         stack.push(33);
@@ -41,7 +41,7 @@ public class ArrayStackTest {
     }
 
     @Test
-    public void isEmpty() {
+    public void isEmpty() throws group144.shervashidze.EmptyStackException {
         Stack<Integer> stack = new ArrayStack<Integer>();
         stack.push(11);
         stack.push(12);
