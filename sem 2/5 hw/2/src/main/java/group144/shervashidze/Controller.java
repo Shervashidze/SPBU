@@ -16,7 +16,15 @@ public class Controller {
     @FXML
     private TextField answer;
 
-    /** Initialization method */
+    /** Initialization method
+     *  Setting 4 choices in operations ('+', '-', '*', '/')
+     *  Setting launching choice as '+'.
+     *
+     *  Setting auto calculation after switching value of any choice box.
+     *
+     *  Setting range of possible int values as (-500;500).
+     *  Setting launching value of answer as '0'.
+     */
     public void initialize() {
         operations.getItems().addAll("+", "-", "*", "/");
         operations.valueProperty().setValue("+");
@@ -32,6 +40,13 @@ public class Controller {
         secondNumber.valueProperty().addListener((observable, oldValue, newValue) -> calculate());
     }
 
+    /**
+     * Calculate method.
+     *
+     * Print "Division by 0" in answer field if it is fits.
+     * Print correct answer as double number in answer field.
+     *
+     */
     private void calculate() {
         double result = 0;
         int first = firstNumber.getValue();
