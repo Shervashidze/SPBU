@@ -1,7 +1,5 @@
 package group144.shervashidze;
 
-import java.util.EmptyStackException;
-
 public class ArrayStack<T> implements Stack<T> {
     private int length = 0;
     private int arraySize = 10;
