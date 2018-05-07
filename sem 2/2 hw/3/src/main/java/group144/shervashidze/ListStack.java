@@ -1,7 +1,5 @@
 package group144.shervashidze;
 
-import java.util.EmptyStackException;
-
 public class ListStack<T> implements Stack<T> {
     private int length = 0;
     private Element<T> head = null;
