@@ -71,7 +71,6 @@ public class Controller {
         }
         showBuffer(" + ");
         if (calculator.isClear()) {
-            calculator.setIsNotClear();
             calculator.setFirst(textField.getText(), Commands.ADDITION);
         } else {
             calculator.calculate(Commands.ADDITION, textField.getText());
@@ -101,7 +100,6 @@ public class Controller {
         }
         showBuffer(" - ");
         if (calculator.isClear()) {
-            calculator.setIsNotClear();
             calculator.setFirst(textField.getText(), Commands.SUBTRACTION);
         } else {
             calculator.calculate(Commands.SUBTRACTION, textField.getText());
@@ -131,7 +129,6 @@ public class Controller {
         }
         showBuffer(" * ");
         if (calculator.isClear()) {
-            calculator.setIsNotClear();
             calculator.setFirst(textField.getText(), Commands.MULTIPLICATION);
         } else {
             calculator.calculate(Commands.MULTIPLICATION, textField.getText());
@@ -163,7 +160,6 @@ public class Controller {
         showBuffer(" / ");
 
         if (calculator.isClear()) {
-            calculator.setIsNotClear();
             calculator.setFirst(textField.getText(), Commands.DIVISION);
         } else {
             calculator.calculate(Commands.DIVISION, textField.getText());

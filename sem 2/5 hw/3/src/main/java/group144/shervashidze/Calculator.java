@@ -19,14 +19,6 @@ public class Calculator {
     }
 
     /**
-     * setIsNotClear.
-     * Marking the calculator as initialized.
-     */
-    public void setIsNotClear() {
-        isClear = false;
-    }
-
-    /**
      * getValue
      * @return current value of the Calculator.
      */
@@ -50,6 +42,7 @@ public class Calculator {
     public void setFirst(String string, Commands op) {
         current = Double.valueOf(string);
         operation = op;
+        isClear = false;
     }
 
     /**
