@@ -1,5 +1,7 @@
 package group144.shervashidze;
 
+import com.sun.java.swing.plaf.windows.WindowsTreeUI;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +51,7 @@ public final class FirstPartTasks {
 
     // Число повторяющихся альбомов в потоке
     public static long countAlbumDuplicates(Stream<Album> albums) {
-        return albums.collect(Collectors.groupingBy(album -> album, Collectors.counting())).values().stream()
+        return albums.collect(Collectors.groupingBy(album -> album.getName(), Collectors.counting())).values().stream()
                 .filter(value -> value >= 2).count();
     }
 
@@ -64,20 +66,20 @@ public final class FirstPartTasks {
     public static List<Album> sortByAverageRating(Stream<Album> albums) {
         return albums.sorted(
                 Comparator.comparingDouble(
-                album -> (-1) * album.getTracks().stream().mapToInt(Track::getRating).average().getAsDouble()))
+                album -> (-1) * album.getTracks().stream().mapToInt(Track::getRating).average().orElse(0)))
                 .collect(Collectors.toList());
     }
 
     // Произведение всех чисел потока по модулю 'modulo'
     // (все числа от 0 до 10000)
     public static int moduloProduction(IntStream stream, int modulo) {
-        return stream.reduce(1, (a, b) -> (a * b) % modulo);
+        return stream.reduce((a, b) -> (a * b) % modulo).orElse(42);
     }
 
     // Вернуть строку, состояющую из конкатенаций переданного массива, и окруженную строками "<", ">"
     // см. тесты
     public static String joinTo(String... strings) {
-        return "<" + Stream.of(strings).reduce((s1, s2) -> s1 + ", " + s2).orElse("") + ">";
+        return "<" + Stream.of(strings).collect(Collectors.joining(", ")) + ">";
     }
 
     // Вернуть поток из объектов класса 'clazz'

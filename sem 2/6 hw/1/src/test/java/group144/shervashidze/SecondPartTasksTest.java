@@ -2,10 +2,8 @@ package group144.shervashidze;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.AnnotatedArrayType;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -41,6 +39,31 @@ public class SecondPartTasksTest {
 
     @Test
     public void testCalculateGlobalOrder() {
-        fail();
+        List<Map<String, Integer>> orders = new ArrayList<>();
+        orders.add(new HashMap<>());
+        orders.add(new HashMap<>());
+        orders.add(new HashMap<>());
+        orders.add(new HashMap<>());
+
+        orders.get(0).put("Bananas", 10);
+        orders.get(0).put("Apples", 10);
+        orders.get(0).put("Chairs", 10);
+
+        orders.get(1).put("Chairs", 42);
+        orders.get(1).put("People", 10000);
+
+        orders.get(2).put("Bananas", 42);
+        orders.get(2).put("Apples", 42);
+
+        orders.get(3).put("Something new", 1);
+
+        HashMap<String, Integer> answer = new HashMap<>();
+        answer.put("Apples", 52);
+        answer.put("Bananas", 52);
+        answer.put("Chairs", 52);
+        answer.put("People", 10000);
+        answer.put("Something new", 1);
+
+        assertEquals(answer, SecondPartTasks.calculateGlobalOrder(orders));
     }
 }

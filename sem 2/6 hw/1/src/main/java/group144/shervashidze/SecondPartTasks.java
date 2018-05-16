@@ -46,6 +46,7 @@ public final class SecondPartTasks {
     // Необходимо вычислить, какой товар и в каком количестве надо поставить.
     public static Map<String, Integer> calculateGlobalOrder(List<Map<String, Integer>> orders) {
         return orders.stream().flatMap(order -> order.entrySet().stream()).
-                collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Integer::sum));
+                collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue + newValue));
     }
 }
