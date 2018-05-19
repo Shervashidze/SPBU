@@ -68,9 +68,9 @@ public class MainField {
      * @param row to make turn
      * @param column to make turn
      */
-    public void makeTurn(int row, int column) {
+    public boolean makeTurn(int row, int column) {
         if (states[row * SIZE + column] != State.NOTHING) {
-            return;
+            return false;
         }
 
         if (currentPlayer == Players.FIRST) {
@@ -80,6 +80,8 @@ public class MainField {
             states[row * SIZE + column] = State.O;
             currentPlayer = Players.FIRST;
         }
+
+        return true;
     }
 
     /**

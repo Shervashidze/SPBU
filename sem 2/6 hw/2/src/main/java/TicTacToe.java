@@ -67,8 +67,9 @@ public class TicTacToe {
             for (int j = 0; j < size; j++) {
                 Button currentButton = (Button) pane.getChildren().get(i * size + j);
                 if (event.getSource().equals(currentButton)) {
-                    mainField.makeTurn(i, j);
-                    currentButton.textProperty().setValue(mainField.takeSignLastTurnPlayer());
+                    if (mainField.makeTurn(i, j)) {
+                        currentButton.textProperty().setValue(mainField.takeSignLastTurnPlayer());
+                    }
                 }
 
                 if (mainField.isEnd()) {
