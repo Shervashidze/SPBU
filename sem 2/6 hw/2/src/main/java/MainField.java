@@ -67,6 +67,7 @@ public class MainField {
      * Make turn.
      * @param row to make turn
      * @param column to make turn
+     * @return true if turn have consequences, false otherwise.
      */
     public boolean makeTurn(int row, int column) {
         if (states[row * SIZE + column] != State.NOTHING) {
