@@ -63,7 +63,6 @@ public class LazyFactoryTest {
         assertEquals(1, supplier.getCounter());
     }
 
-
     private class MyIntSupplier implements Supplier<Integer> {
         private int counter = 0;
 
