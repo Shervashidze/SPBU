@@ -53,6 +53,7 @@ public class TicTacToe {
     private void showEndGame(String string) {
         Alert finishMessage = new Alert(Alert.AlertType.INFORMATION);
         finishMessage.setTitle("Game over");
+        finishMessage.setHeaderText("Game over");
         finishMessage.setContentText(string);
 
         finishMessage.showAndWait();
