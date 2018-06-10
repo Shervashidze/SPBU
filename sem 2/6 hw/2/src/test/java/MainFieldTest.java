@@ -20,42 +20,42 @@ public class MainFieldTest {
     @Test
     public void firstDesk() {
         field.makeTurn(0, 0);
-        assertFalse(field.isEnd());
+        assertFalse(field.isEnd() == MainField.GameState.PLAYING);
         field.makeTurn(0, 1);
         field.makeTurn(1, 0);
         field.makeTurn(1, 1);
-        assertFalse(field.isEnd());
+        assertFalse(field.isEnd() == MainField.GameState.PLAYING);
         field.makeTurn(2, 0);
-        assertTrue(field.isEnd());
+        assertTrue(field.isEnd() == MainField.GameState.XWON);
     }
 
     @Test
     public void secondDesk() {
         field.makeTurn(0, 0);
-        assertFalse(field.isEnd());
+        assertFalse(field.isEnd() == MainField.GameState.PLAYING);
         field.makeTurn(0, 1);
         field.makeTurn(1, 1);
         field.makeTurn(1, 0);
-        assertFalse(field.isEnd());
+        assertFalse(field.isEnd() == MainField.GameState.PLAYING);
         field.makeTurn(2, 2);
-        assertTrue(field.isEnd());
+        assertTrue(field.isEnd() == MainField.GameState.XWON);
     }
 
     @Test
     public void fullDesk() {
         field.makeTurn(0, 0);
-        assertFalse(field.isEnd());
+        assertFalse(field.isEnd() == MainField.GameState.PLAYING);
         field.makeTurn(0, 1);
         field.makeTurn(1, 0);
         field.makeTurn(1, 1);
-        assertFalse(field.isEnd());
+        assertFalse(field.isEnd() == MainField.GameState.PLAYING);
         field.makeTurn(2, 1);
         field.makeTurn(2, 0);
-        assertFalse(field.isEnd());
+        assertFalse(field.isEnd() == MainField.GameState.PLAYING);
         field.makeTurn(0, 2);
-        assertFalse(field.isEnd());
+        assertFalse(field.isEnd() == MainField.GameState.PLAYING);
         field.makeTurn(1, 2);
         field.makeTurn(2, 2);
-        assertTrue(field.isEnd());
+        assertTrue(field.isEnd() == MainField.GameState.DRAW);
     }
 }

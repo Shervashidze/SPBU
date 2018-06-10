@@ -6,10 +6,16 @@ public class MainField {
     /** private Size of the main field */
     private static int SIZE = 3;
 
+    /** enum to assign players */
     private enum Players {FIRST, SECOND}
 
+    /** enum to assign game states */
+    public enum GameState {PLAYING, DRAW, XWON, OWON}
+
+    /** current player */
     private Players currentPlayer = Players.FIRST;
 
+    /** enum to assign state of the game button */
     private enum State {X, O, NOTHING}
 
     /**
@@ -20,7 +26,9 @@ public class MainField {
 
     /** Initializing method: sets all elements of states as NOTHING */
     public MainField() {
-        for (int i = 0; i < SIZE * SIZE; i++) states[i] = State.NOTHING;
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            states[i] = State.NOTHING;
+        }
     }
 
     /**
@@ -32,26 +40,63 @@ public class MainField {
     }
 
     /**
-     * isEnd.
-     * @return true if all elements is not nothing, if 3 X's or O's are on the column, on the rows or on the diagonals.
+     * is End.
+     * @return XWON if first player won, OWON if second won, DRAW if no one won, and PLAYING if game is not end.
      */
-    public boolean isEnd() {
+    public GameState isEnd() {
         for (int row = 0; row < SIZE; row++) {
-            if (states[row * SIZE] == states[row * SIZE + 1] && states[row * SIZE] == states[row * SIZE + 2] &&
-                    states[row * SIZE] != State.NOTHING) {
-                return true;
+            if (states[row * SIZE] == states[row * SIZE + 1] &&
+                    states[row * SIZE] == states[row * SIZE + 2] && states[row * SIZE] != State.NOTHING) {
+                if (states[row * SIZE] == State.X) {
+                    return GameState.XWON;
+                } else {
+                    return  GameState.OWON;
+                }
             }
         }
+
         for (int column = 0; column < SIZE; column++) {
             if (states[column] == states[column + SIZE] && states[column] == states[column + SIZE * 2] &&
                     states[column] != State.NOTHING) {
-                return true;
+                if (states[column] == State.X) {
+                    return GameState.XWON;
+                } else {
+                    return  GameState.OWON;
+                }
             }
         }
 
-        if (states[0] == states[4] && states[0] == states[8] && states[0] != State.NOTHING) return true;
+        int firstOfMainDiag = 0;
+        boolean isMainDiagEnd = true;
+        if (states[firstOfMainDiag] == State.NOTHING){
+            isMainDiagEnd = false;
+        }
+        for (int i = 0; i < SIZE; i++) {
+            isMainDiagEnd = isMainDiagEnd && (states[firstOfMainDiag] == states[i * SIZE + i]);
+        }
+        if (isMainDiagEnd) {
+            if (states[firstOfMainDiag] == State.X) {
+                return GameState.XWON;
+            } else {
+                return GameState.OWON;
+            }
+        }
 
-        if (states[2] == states[4] && states[2] == states[6] && states[2] != State.NOTHING) return true;
+        int firstOfSecondDiag = SIZE - 1;
+        boolean isSecondDiagEnd = true;
+        if (states[firstOfSecondDiag] == State.NOTHING){
+            isSecondDiagEnd = false;
+        }
+        for (int i = SIZE - 1; i >= 0; i--) {
+            isSecondDiagEnd = isSecondDiagEnd && states[firstOfSecondDiag] == states[(SIZE - 1 - i) * SIZE + i];
+        }
+        if (isSecondDiagEnd) {
+            if (states[firstOfSecondDiag] == State.X) {
+                return GameState.XWON;
+            } else {
+                return GameState.OWON;
+            }
+        }
 
         boolean answer = true;
         for (int i = 0; i < SIZE * SIZE; i++) {
@@ -60,7 +105,11 @@ public class MainField {
             }
         }
 
-        return answer;
+        if (answer) {
+            return GameState.DRAW;
+        } else {
+            return GameState.PLAYING;
+        }
     }
 
     /**
