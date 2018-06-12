@@ -14,6 +14,9 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+/** Client controller class for the client part of 2-players TicTacToe game.
+ * Application can connect only with one server, u should know the server port before the game.
+ */
 public class ClientController {
     /* size of the gameField */
     private int size;
