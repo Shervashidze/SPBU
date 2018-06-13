@@ -60,7 +60,7 @@ public class ServerController {
         try {
             ServerSocket socket = new ServerSocket(port);
             Alert message = new Alert(Alert.AlertType.INFORMATION);
-            message.setContentText("Waiting for connection.");
+            message.setContentText("Click ok to start waiting for connection.");
             message.showAndWait();
 
             client = socket.accept();

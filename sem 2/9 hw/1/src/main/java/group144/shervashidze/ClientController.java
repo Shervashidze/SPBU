@@ -54,6 +54,9 @@ public class ClientController {
         for (int i = 0; i < size * size; i++) {
             buttons[i] = (Button) parent.getChildren().get(i);
         }
+        Alert message = new Alert(Alert.AlertType.INFORMATION);
+        message.setContentText("Click ok to start waiting for connection.");
+        message.showAndWait();
         while (true) {
             try {
                 client = new Socket("localhost", port);
