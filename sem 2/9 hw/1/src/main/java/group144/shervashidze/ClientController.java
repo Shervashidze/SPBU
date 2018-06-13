@@ -18,6 +18,7 @@ import java.util.Scanner;
  * Application can connect only with one server, u should know the server port before the game.
  */
 public class ClientController {
+    private static final int port = 12345;
     /* size of the gameField */
     private int size;
     /* MainField */
@@ -53,16 +54,14 @@ public class ClientController {
         for (int i = 0; i < size * size; i++) {
             buttons[i] = (Button) parent.getChildren().get(i);
         }
-        System.out.print("Enter server: ");
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
-                client = new Socket("localhost", scanner.nextInt());
+                client = new Socket("localhost", port);
                 in = client.getInputStream();
                 out = new PrintStream(client.getOutputStream());
                 break;
             } catch (IOException e) {
-                System.out.print("Wrong server try again.\n");
+                /* do nothing */
             }
         }
 

@@ -19,6 +19,7 @@ import java.net.Socket;
  * Application for the some amount of TicTacToe games with only one opponent. May crash if there are more connections.
  */
 public class ServerController {
+    private static final int port = 12345;
     /* size of the gameField */
     private int size;
     /* MainField */
@@ -57,9 +58,9 @@ public class ServerController {
         setDisable(true);
 
         try {
-            ServerSocket socket = new ServerSocket(0);
+            ServerSocket socket = new ServerSocket(port);
             Alert message = new Alert(Alert.AlertType.INFORMATION);
-            message.setContentText("Server: " + socket.getLocalPort());
+            message.setContentText("Waiting for connection.");
             message.showAndWait();
 
             client = socket.accept();
