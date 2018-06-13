@@ -40,8 +40,8 @@ public class LazyFactory {
      */
     public static <T> Lazy<T> createManyThreadsLazy(Supplier<T> supplier) {
         return new Lazy<T>() {
-            private  boolean wasCalculated = false;
-            private T value;
+            private volatile boolean wasCalculated = false;
+            private volatile T value;
 
             @Override
             public T get() {
