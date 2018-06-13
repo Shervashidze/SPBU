@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="group144.shervashidze.Controller">
+    <Button fx:id="button0" layoutX="14.0" layoutY="220.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="194.0" text="0" textAlignment="CENTER" />
+    <Button fx:id="button1" layoutX="14.0" layoutY="127.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="1" textAlignment="CENTER" />
+    <Button fx:id="button2" layoutX="79.0" layoutY="127.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="2" textAlignment="CENTER" />
+    <Button fx:id="button3" layoutX="141.0" layoutY="127.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="3" textAlignment="CENTER" />
+    <Button fx:id="button4" layoutX="14.0" layoutY="158.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="4" textAlignment="CENTER" />
+    <Button fx:id="button5" layoutX="79.0" layoutY="158.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="5" textAlignment="CENTER" />
+    <Button fx:id="button6" layoutX="141.0" layoutY="158.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="6" textAlignment="CENTER" />
+    <Button fx:id="button7" layoutX="14.0" layoutY="189.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="7" textAlignment="CENTER" />
+    <Button fx:id="button8" layoutX="79.0" layoutY="189.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="8" textAlignment="CENTER" />
+    <Button fx:id="button9" layoutX="142.0" layoutY="189.0" mnemonicParsing="false" onAction="#numberPress" prefHeight="31.0" prefWidth="65.0" text="9" textAlignment="CENTER" />
+    <Button fx:id="buttonAdd" layoutX="208.0" layoutY="127.0" mnemonicParsing="false" onAction="#pressAdd" prefHeight="31.0" prefWidth="65.0" text="+" />
+    <Button fx:id="buttonDiv" layoutX="208.0" layoutY="220.0" mnemonicParsing="false" onAction="#pressDiv" prefHeight="31.0" prefWidth="66.0" text="/" />
+    <Button fx:id="buttonMul" layoutX="208.0" layoutY="189.0" mnemonicParsing="false" onAction="#pressMul" prefHeight="31.0" prefWidth="66.0" text="*" />
+    <Button fx:id="buttonSub" layoutX="208.0" layoutY="158.0" mnemonicParsing="false" onAction="#pressSub" prefHeight="31.0" prefWidth="65.0" text="-" />
+    <Button fx:id="buttonClear" layoutX="273.0" layoutY="127.0" mnemonicParsing="false" onAction="#pressClear" prefHeight="31.0" prefWidth="65.0" text="CE" />
+    <Button fx:id="buttonClearAll" layoutX="273.0" layoutY="158.0" mnemonicParsing="false" onAction="#pressClearAll" prefHeight="31.0" prefWidth="66.0" text="C" />
+    <Button fx:id="buttonAns" layoutX="273.0" layoutY="189.0" mnemonicParsing="false" onAction="#pressAns" prefHeight="62.0" prefWidth="65.0" text="=" />
+    <TextField editable="false" fx:id="textField" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="75.0" prefHeight="52.0" prefWidth="325.0" text="0" />
+    <TextField editable="false" fx:id="textFieldBuff" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="44.0" prefHeight="31.0" prefWidth="325.0" />
+</AnchorPane>
