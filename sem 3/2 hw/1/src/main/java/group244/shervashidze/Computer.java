@@ -17,10 +17,19 @@ public class Computer {
     private boolean isInfected = false;
     /*is computer in danger of infection*/
     private boolean isInfectionStarted = false;
+    /**/
+    private Random random;
+
+    public Computer(String name, OS newOsType, Random random) {
+        this.name = name;
+        osType = newOsType;
+        this.random = random;
+    }
 
     public Computer(String name, OS newOsType) {
         this.name = name;
         osType = newOsType;
+        this.random = new Random();
     }
 
     /**
@@ -65,7 +74,6 @@ public class Computer {
         }
 
         if (isInfectionStarted) {
-            Random random = new Random();
             if (random.nextFloat() < osType.getProbability()) {
                 isInfected = true;
                 notifyConnected();
