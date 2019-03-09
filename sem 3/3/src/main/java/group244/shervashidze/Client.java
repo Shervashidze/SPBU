@@ -15,14 +15,8 @@ import java.util.Objects;
 public class Client extends Game {
 
     private Socket client;
-    private String ipAddress;
+    private String ip;
 
-    /**
-     * Constructor
-     */
-    Client(String ipAddress) {
-        this.ipAddress = Objects.requireNonNull(ipAddress);
-    }
 
     /**
      * initialization. Setting socket in and out.
@@ -32,18 +26,23 @@ public class Client extends Game {
         InetAddress inetAddress = null;
         if (client == null) {
             try {
-                client = new Socket(inetAddress = InetAddress.getByName(ipAddress), Server.PORT);
+                client = new Socket(inetAddress = InetAddress.getByName(ip), Server.PORT);
                 out = new PrintWriter(client.getOutputStream());
                 in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             } catch (UnknownHostException e) {
-                assert ipAddress != null;
-                assert inetAddress != null;
-                System.err.println("Don't know about host: " + inetAddress.getHostAddress());
+                System.err.println("Unknown host: " + inetAddress.getHostAddress());
                 System.exit(1);
             } catch (IOException e) {
-                System.err.println("Couldn't get I/O for the connection to: " + inetAddress.getHostAddress());
+                System.err.println("Fail to connect: " + inetAddress.getHostAddress());
                 System.exit(1);
             }
         }
+    }
+
+    /**
+     * Constructor
+     */
+    Client(String ip) {
+        this.ip = Objects.requireNonNull(ip);
     }
 }

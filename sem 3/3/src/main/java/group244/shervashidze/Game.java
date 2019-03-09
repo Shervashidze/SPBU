@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Class for two sockets client and server
+ * Class for connection with enemy
  */
 public abstract class Game implements AutoCloseable {
     volatile PrintWriter out;
@@ -19,7 +19,7 @@ public abstract class Game implements AutoCloseable {
     private final ExecutorService sender = Executors.newSingleThreadExecutor();
 
     /**
-     * Method for correct initialization()
+     * Method for one-time init
      */
     private void init() {
         if (in == null) {
@@ -44,8 +44,8 @@ public abstract class Game implements AutoCloseable {
     }
 
     /**
-     * sends command
-     * @param commands your List from commands
+     * sends commands
+     * @param commands - list of the commands to send
      */
     public void send(List<KeyCode> commands) {
         if (commands.isEmpty()) {
@@ -63,14 +63,10 @@ public abstract class Game implements AutoCloseable {
     }
 
     /**
-     * returns the received command
+     * receive enemy's commands
      */
     public KeyCode receive() {
         initialization();
-        return in.lines()
-                .limit(1)
-                .findAny()
-                .map(KeyCode::valueOf)
-                .orElse(null);
+        return in.lines().limit(1).findAny().map(KeyCode::valueOf).orElse(null);
     }
 }

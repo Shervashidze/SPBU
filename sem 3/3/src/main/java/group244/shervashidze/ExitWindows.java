@@ -5,14 +5,14 @@ import javafx.scene.control.ButtonType;
 
 class ExitWindows {
     /**
-     * Method for realise exit window
-     * @param state lose or win
-     * @param name name player
+     * Creating exitWindow with some information
+     * @param state of the endgame(win or lose)
+     * @param name - name of the player
      */
     static void exitWindow(String state, String name) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, null, ButtonType.CLOSE);
-        alert.setTitle("exit");
         alert.setHeaderText(null);
+        alert.setTitle("Exit");;
         if (name.contains("Server")) {
             alert.setContentText("Server " + state);
         } else {
@@ -27,8 +27,8 @@ class ExitWindows {
      */
     static void escapeeWindow() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, null, ButtonType.CLOSE);
-        alert.setTitle("escape exit");
         alert.setHeaderText(null);
+        alert.setTitle("Exit");
         alert.setContentText("Player pressed the escape");
         alert.setOnCloseRequest(event -> System.exit(0));
         alert.show();
