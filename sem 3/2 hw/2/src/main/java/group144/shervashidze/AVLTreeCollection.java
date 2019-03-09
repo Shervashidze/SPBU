@@ -1,8 +1,6 @@
 package group144.shervashidze;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Class realizing Collection as AVL tree.
@@ -77,15 +75,11 @@ public class AVLTreeCollection<T extends Comparable<T>> implements Collection<T>
 
     /**
      * AVLTreeIterator
-     * put all elements in ArrayList<T>/</T> (dfs).
+     * return elements in dfs order.
      */
     private class AVLTreeIterator implements Iterator<T> {
-        private ArrayList<T> elements;
-
-        AVLTreeIterator() {
-            elements = new ArrayList<>();
-            head.takeAll(elements);
-        }
+        private Stack<Guardian> elements = new Stack<>();
+        private Guardian current = head;
 
         /**
          * hasNext.
@@ -94,7 +88,7 @@ public class AVLTreeCollection<T extends Comparable<T>> implements Collection<T>
          */
         @Override
         public boolean hasNext() {
-            return !elements.isEmpty();
+            return current.client != null || !elements.empty();
         }
 
         /**
@@ -105,11 +99,31 @@ public class AVLTreeCollection<T extends Comparable<T>> implements Collection<T>
          */
         @Override
         public T next() {
-            if (isEmpty()) {
+            if (current.client == null & elements.empty()) {
                 return null;
             }
+            if (current.client == null) {
+                current = elements.pop();
+                Guardian temp = current;
+                shiftRight();
+                return temp.client.value;
+            }
 
-            return elements.remove(0);
+            shiftLeft();
+            Guardian temp = current;
+            shiftRight();
+            return temp.client.value;
+        }
+
+        void shiftLeft() {
+            while (current.client.left.client != null) {
+                elements.add(current);
+                current = current.client.left;
+            }
+        }
+
+        void shiftRight() {
+            current = current.client.right;
         }
     }
 

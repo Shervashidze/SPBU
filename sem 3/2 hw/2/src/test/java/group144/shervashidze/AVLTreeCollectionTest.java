@@ -119,6 +119,7 @@ public class AVLTreeCollectionTest {
         set.add("Spider-man");
         set.add("will");
         set.add("die");
+        System.out.print(set.print());
         Iterator<String> avlTreeIterator = set.iterator();
         assertTrue(avlTreeIterator.hasNext());
         assertEquals(avlTreeIterator.next(), "Spider-man");
