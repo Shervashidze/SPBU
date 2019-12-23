@@ -11,6 +11,7 @@ public class AVLTreeCollection<T extends Comparable<T>> implements Collection<T>
     private Guardian head;
     private int size;
 
+
     /**
      * Initialization method.
      * sets head as new guardian.
@@ -78,52 +79,64 @@ public class AVLTreeCollection<T extends Comparable<T>> implements Collection<T>
      * return elements in dfs order.
      */
     private class AVLTreeIterator implements Iterator<T> {
-        private Stack<Guardian> elements = new Stack<>();
-        private Guardian current = head;
+        private LinkedList<T> elements;
+
+
+        private AVLTreeIterator() {
+            elements = new LinkedList<>();
+            addValues(head);
+        }
+
+        /**
+         * Adds values in elements in dfs order
+         * @param guardian
+         */
+        private void addValues(Guardian guardian) {
+            if (guardian.client == null) {
+                return;
+            }
+            addValues(guardian.client.left);
+            for (int i = 0; i < guardian.client.amount; i++) {
+                elements.add(guardian.client.value);
+            }
+            addValues(guardian.client.right);
+        }
 
         /**
          * hasNext.
          *
-         * @return true if there are elements in Array List, false otherwise.
+         * @return true if there are elements in List, false otherwise.
          */
         @Override
         public boolean hasNext() {
-            return current.client != null || !elements.empty();
+            return !elements.isEmpty();
         }
 
         /**
          * next.
-         * removes elements from Array List.
+         * removes element from List.
+         * Checks if element was deleted.
          *
-         * @return current element, null if there is no elements left.
+         * @return next element, null if there is no elements left.
          */
         @Override
         public T next() {
-            if (current.client == null & elements.empty()) {
-                return null;
+            T temp = elements.pollFirst();
+            while (!(contains(temp))) {
+                temp = elements.pollFirst();
+                if (temp == null) {
+                    throw new NoSuchElementException();
+                }
             }
-            if (current.client == null) {
-                current = elements.pop();
-                Guardian temp = current;
-                shiftRight();
-                return temp.client.value;
-            }
-
-            shiftLeft();
-            Guardian temp = current;
-            shiftRight();
-            return temp.client.value;
+            return temp;
         }
 
-        void shiftLeft() {
-            while (current.client.left.client != null) {
-                elements.add(current);
-                current = current.client.left;
-            }
-        }
-
-        void shiftRight() {
-            current = current.client.right;
+        /**
+         * removes next element from collection.
+         */
+        @Override
+        public void remove() {
+            AVLTreeCollection.this.remove(next());
         }
     }
 

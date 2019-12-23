@@ -116,17 +116,37 @@ public class AVLTreeCollectionTest {
     @Test
     public void iteratorTest() {
         AVLTreeCollection<String> set = new AVLTreeCollection<>();
-        set.add("Spider-man");
-        set.add("will");
-        set.add("die");
-        System.out.print(set.print());
+        set.add("S");
+        set.add("w");
+        set.add("d");
         Iterator<String> avlTreeIterator = set.iterator();
         assertTrue(avlTreeIterator.hasNext());
-        assertEquals(avlTreeIterator.next(), "Spider-man");
-        assertEquals(avlTreeIterator.next(), "die");
+        assertEquals(avlTreeIterator.next(), "S");
+        assertEquals(avlTreeIterator.next(), "d");
         assertTrue(avlTreeIterator.hasNext());
-        assertEquals(avlTreeIterator.next(), "will");
+        assertEquals(avlTreeIterator.next(), "w");
         assertFalse(avlTreeIterator.hasNext());
+    }
+
+    @Test
+    public void multipleIteratorsTest() {
+        AVLTreeCollection<String> set = new AVLTreeCollection<>();
+        set.add("S");
+        set.add("a");
+        set.add("w");
+        set.add("d");
+        Iterator<String> firstIterator = set.iterator();
+        Iterator<String> secondIterator = set.iterator();
+        assertTrue(firstIterator.hasNext());
+        assertEquals(firstIterator.next(), "S");
+        firstIterator.remove();
+        assertEquals(firstIterator.next(), "d");
+        firstIterator.remove();
+        assertFalse(firstIterator.hasNext());
+
+        assertTrue(secondIterator.hasNext());
+        assertEquals(secondIterator.next(), "S");
+        assertEquals(secondIterator.next(), "d");
     }
 
     @Test
