@@ -121,10 +121,10 @@ public class AVLTreeCollectionTest {
         set.add("d");
         Iterator<String> avlTreeIterator = set.iterator();
         assertTrue(avlTreeIterator.hasNext());
-        assertEquals(avlTreeIterator.next(), "S");
-        assertEquals(avlTreeIterator.next(), "d");
+        assertEquals("S", avlTreeIterator.next());
+        assertEquals("d", avlTreeIterator.next());
         assertTrue(avlTreeIterator.hasNext());
-        assertEquals(avlTreeIterator.next(), "w");
+        assertEquals("w", avlTreeIterator.next());
         assertFalse(avlTreeIterator.hasNext());
     }
 
@@ -138,15 +138,15 @@ public class AVLTreeCollectionTest {
         Iterator<String> firstIterator = set.iterator();
         Iterator<String> secondIterator = set.iterator();
         assertTrue(firstIterator.hasNext());
-        assertEquals(firstIterator.next(), "S");
+        assertEquals("S", firstIterator.next());
         firstIterator.remove();
-        assertEquals(firstIterator.next(), "d");
+        assertEquals("d", firstIterator.next());
         firstIterator.remove();
         assertFalse(firstIterator.hasNext());
 
         assertTrue(secondIterator.hasNext());
-        assertEquals(secondIterator.next(), "S");
-        assertEquals(secondIterator.next(), "d");
+        assertEquals("S", secondIterator.next());
+        assertEquals("d", secondIterator.next());
         assertFalse(secondIterator.hasNext());
     }
 

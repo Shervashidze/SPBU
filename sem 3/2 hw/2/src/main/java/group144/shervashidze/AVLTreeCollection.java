@@ -88,6 +88,60 @@ public class AVLTreeCollection<T extends Comparable<T>> implements Collection<T>
         }
 
         /**
+         * hasNext.
+         * tracks changes in set.
+         *
+         * @return true if there are elements in List, false otherwise.
+         */
+        @Override
+        public boolean hasNext() {
+            update();
+            return !elements.isEmpty();
+        }
+
+        /**
+         * next.
+         * removes element from List.
+         * Checks if element was deleted.
+         *
+         * @return next element, null if there is no elements left.
+         */
+        @Override
+        public T next() {
+            update();
+            if (elements.isEmpty()) {
+                return null;
+            }
+            return elements.pollFirst();
+        }
+
+        /**
+         * removes next element from collection.
+         */
+        @Override
+        public void remove() {
+            AVLTreeCollection.this.remove(next());
+        }
+
+        /**
+         * removes elements if something from set was deleted
+         */
+        private void update() {
+            if (elements.isEmpty()) {
+                return;
+            }
+
+            T temp = elements.getFirst();
+            while (!(contains(temp))) {
+                elements.remove(temp);
+                if (elements.isEmpty()) {
+                    return;
+                }
+                temp = elements.getFirst();
+            }
+        }
+
+        /**
          * Adds values in elements in dfs order
          * @param guardian
          */
@@ -100,52 +154,6 @@ public class AVLTreeCollection<T extends Comparable<T>> implements Collection<T>
                 elements.add(guardian.client.value);
             }
             addValues(guardian.client.right);
-        }
-
-        /**
-         * hasNext.
-         * tracks changes in set.
-         *
-         * @return true if there are elements in List, false otherwise.
-         */
-        @Override
-        public boolean hasNext() {
-            if (elements.isEmpty()) {
-                return false;
-            }
-            for (T element : elements) {
-                if (contains(element)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /**
-         * next.
-         * removes element from List.
-         * Checks if element was deleted.
-         *
-         * @return next element, null if there is no elements left.
-         */
-        @Override
-        public T next() {
-            T temp = elements.pollFirst();
-            while (!(contains(temp))) {
-                temp = elements.pollFirst();
-                if (temp == null) {
-                    throw new NoSuchElementException();
-                }
-            }
-            return temp;
-        }
-
-        /**
-         * removes next element from collection.
-         */
-        @Override
-        public void remove() {
-            AVLTreeCollection.this.remove(next());
         }
     }
 
