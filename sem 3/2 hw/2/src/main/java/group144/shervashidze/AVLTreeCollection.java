@@ -104,12 +104,21 @@ public class AVLTreeCollection<T extends Comparable<T>> implements Collection<T>
 
         /**
          * hasNext.
+         * tracks changes in set.
          *
          * @return true if there are elements in List, false otherwise.
          */
         @Override
         public boolean hasNext() {
-            return !elements.isEmpty();
+            if (elements.isEmpty()) {
+                return false;
+            }
+            for (T element : elements) {
+                if (contains(element)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /**

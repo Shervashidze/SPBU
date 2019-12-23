@@ -147,6 +147,7 @@ public class AVLTreeCollectionTest {
         assertTrue(secondIterator.hasNext());
         assertEquals(secondIterator.next(), "S");
         assertEquals(secondIterator.next(), "d");
+        assertFalse(secondIterator.hasNext());
     }
 
     @Test
