@@ -186,28 +186,23 @@ public class ClientApl extends Application {
      */
     private void gameForClient() {
         window = new Stage();
-        window.setFullScreen(true);
-        window.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         window.setTitle("Client Window");
 
         Group root = new Group();
         Scene scene = new Scene(root);
         window.setScene(scene);
         List<KeyCode> keys = keyboardSettings(scene);
-        List<KeyCode> counterpartyKeys = enemyKeyboardSettings(game);
+        List<KeyCode> enemyKeys = enemyKeyboardSettings(game);
 
-        int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
-        int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight() + 40;
-        Canvas canvas = new Canvas(screenWidth, screenHeight);
+        Canvas canvas = new Canvas(BASIC_WIDTH, BASIC_HEIGHT);
         root.getChildren().add(canvas);
 
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.scale((double) screenWidth / BASIC_WIDTH, (double) screenHeight / BASIC_HEIGHT);
 
         Tank weapon = new Tank(graphicsContext, START_X, START_Y);
         Tank weapon2 = new Tank(graphicsContext, BASIC_WIDTH - START_X, START_Y);
 
-        gameMechanics(window, graphicsContext, keys, counterpartyKeys, weapon2, weapon);
+        gameMechanics(window, graphicsContext, keys, enemyKeys, weapon2, weapon);
         window.show();
     }
 

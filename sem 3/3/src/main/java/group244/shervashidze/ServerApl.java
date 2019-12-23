@@ -107,8 +107,6 @@ public class ServerApl extends Application {
 
     private void startGame() {
         serverWindow = new Stage();
-        serverWindow.setFullScreen(true);
-        serverWindow.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         serverWindow.setTitle("Server Window");
 
         Group root = new Group();
@@ -117,13 +115,10 @@ public class ServerApl extends Application {
         List<KeyCode> keys = keyboardSettings(scene);
         List<KeyCode> enemyKeys = enemyKeyboardSettings(game);
 
-        int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
-        int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight() + 40;
-        Canvas canvas = new Canvas(screenWidth, screenHeight);
+        Canvas canvas = new Canvas(BASIC_WIDTH, BASIC_HEIGHT);
         root.getChildren().add(canvas);
 
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.scale((double) screenWidth / BASIC_WIDTH, (double) screenHeight / BASIC_HEIGHT);
 
         Tank weapon = new Tank(graphicsContext, START_X, START_Y);
         Tank weapon2 = new Tank(graphicsContext, BASIC_WIDTH - START_X, START_Y);
