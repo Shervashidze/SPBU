@@ -59,7 +59,7 @@ public abstract class Bullet {
      */
     public void render() {
         graphicsContext.setFill(paint);
-        graphicsContext.fillOval(x - bulletSize() / 2, y - bulletSize() / 2, bulletSize(), bulletSize());
+        graphicsContext.fillOval(x - bulletSize() / 2.0, y - bulletSize() / 2.0, bulletSize(), bulletSize());
         x = x0 + (int) (speed * cos(angle) * timer);
         y = (y0 + (int) (speed * sin(angle) * timer) + (int) (G * timer * timer / 2));
         timer += 0.1;

@@ -40,6 +40,7 @@ public class Map {
                 .toArray();
         graphicsContext.setFill(Color.GREEN);
         graphicsContext.fillPolygon(DMAP_X, DMAP_Y, MAP_X.length);
+        graphicsContext.fillRect(0, 700, 100000, 100000);
     }
 
     /** Method that putting object on the ground */

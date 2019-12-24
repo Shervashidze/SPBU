@@ -26,6 +26,6 @@ public class BigBullet extends Bullet {
      */
     @Override
     protected int bulletSize() {
-        return 35;
+        return 30;
     }
 }

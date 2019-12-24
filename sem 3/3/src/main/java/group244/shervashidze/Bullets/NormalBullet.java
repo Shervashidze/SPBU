@@ -26,6 +26,6 @@ public class NormalBullet extends Bullet {
      */
     @Override
     protected int bulletSize() {
-        return 25;
+        return 23;
     }
 }
