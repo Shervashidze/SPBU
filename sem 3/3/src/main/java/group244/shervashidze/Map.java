@@ -35,7 +35,7 @@ public class Map {
                 .map(x -> x * BLOCK_SIZE)
                 .toArray();
         double[] DMAP_Y = Arrays.stream(MAP_Y).mapToDouble(x -> (double) x)
-                .map(x -> 7 -x)
+                .map(x -> 7 - x)
                 .map(x -> x * BLOCK_SIZE)
                 .toArray();
         graphicsContext.setFill(Color.GREEN);

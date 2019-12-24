@@ -27,7 +27,7 @@ public class Tank {
         this.graphicsContext = gc;
         this.x = x;
         this.y = y;
-        this.angle = -45;
+        this.angle = -90;
     }
 
     public int getX() {

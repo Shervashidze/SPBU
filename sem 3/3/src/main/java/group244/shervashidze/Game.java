@@ -1,5 +1,6 @@
 package group244.shervashidze;
 
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 
 import java.io.BufferedReader;
@@ -39,7 +40,11 @@ public abstract class Game implements AutoCloseable {
             in.close();
             sender.shutdown();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Error, the connection is already closed");
+            alert.showAndWait();
+            System.exit(1);
         }
     }
 

@@ -96,10 +96,18 @@ public abstract class Bullet {
         return explodeRadius;
     }
 
+    /**
+     * get X
+     * @return current x coordinate
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * get Y
+     * @return current y coordinate
+     */
     public int getY() {
         return y;
     }

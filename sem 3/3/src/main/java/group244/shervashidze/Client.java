@@ -1,5 +1,8 @@
 package group244.shervashidze;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,10 +33,16 @@ public class Client extends Game {
                 out = new PrintWriter(client.getOutputStream());
                 in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             } catch (UnknownHostException e) {
-                System.err.println("Unknown host: " + inetAddress.getHostAddress());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, null, ButtonType.CLOSE);
+                alert.setHeaderText(null);
+                alert.setTitle("Exit");
+                alert.setContentText("Unknown host: " + inetAddress.getHostAddress());
                 System.exit(1);
             } catch (IOException e) {
-                System.err.println("Fail to connect: " + inetAddress.getHostAddress());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, null, ButtonType.CLOSE);
+                alert.setHeaderText(null);
+                alert.setTitle("Exit");
+                alert.setContentText("Fail to connect: " + inetAddress.getHostAddress());
                 System.exit(1);
             }
         }

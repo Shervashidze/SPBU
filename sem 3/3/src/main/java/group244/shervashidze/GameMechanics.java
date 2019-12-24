@@ -1,45 +1,21 @@
 package group244.shervashidze;
 
-import group244.shervashidze.Bullets.*;
+import group244.shervashidze.Bullets.Bullet;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static group244.shervashidze.ExitWindows.escapeeWindow;
 import static group244.shervashidze.ExitWindows.exitWindow;
 import static java.util.stream.Collectors.toList;
 
-public class ServerApl extends Application {
-    private static GridPane gridPane = new GridPane();
-    private Scene scene = new Scene(gridPane, 280, 250);
-    private static final int BASIC_WIDTH = 1000;
-    private static final int BASIC_HEIGHT = 700;
-    private static Button serverButton;
+public class GameMechanics {
+
     private boolean isEnded;
-    private Stage serverWindow;
-
     private volatile Game game;
-
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private static final int START_X = 250;
-    private static final int START_Y = 0;
 
     private static final Set<KeyCode> SUPPORTED_KEYS = EnumSet.of(
             KeyCode.LEFT,
@@ -53,119 +29,6 @@ public class ServerApl extends Application {
             KeyCode.DIGIT3
     );
 
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Connecting");
-        primaryStage.setResizable(false);
-
-        initialize();
-
-        serverButtonAction();
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    private static void initialize() {
-        gridPane.setPadding(new Insets(25, 25, 25, 25));
-        gridPane.setHgap(25);
-        gridPane.setVgap(15);
-
-        serverButton = new Button();
-        serverButton.setText("Start Game");
-        serverButton.setPrefSize(230, gridPane.getHeight() / 3);
-
-        gridPane.add(serverButton, 0, 0);
-    }
-
-    private void serverButtonAction() {
-        serverButton.setOnAction(event -> {
-            InetAddress thisIp = null;
-
-            try {
-                thisIp = InetAddress.getLocalHost();
-            } catch (UnknownHostException ex) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Can't get IP", ButtonType.CLOSE);
-                alert.setHeaderText(null);
-                alert.showAndWait();
-                System.exit(1);
-            }
-
-            Label ip = new Label("Your IP address: " + thisIp.getHostAddress());
-            gridPane.add(ip, 0, 4);
-            serverButton.setDisable(true);
-
-            game = new Server();
-
-            startGame();
-        });
-    }
-
-    private void startGame() {
-        serverWindow = new Stage();
-        serverWindow.setTitle("Server Window");
-
-        Group root = new Group();
-        Scene scene = new Scene(root);
-        serverWindow.setScene(scene);
-        List<KeyCode> keys = keyboardSettings(scene);
-        List<KeyCode> enemyKeys = enemyKeyboardSettings(game);
-
-        Canvas canvas = new Canvas(BASIC_WIDTH, BASIC_HEIGHT);
-        root.getChildren().add(canvas);
-
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-
-        Tank weapon = new Tank(graphicsContext, START_X, START_Y);
-        Tank weapon2 = new Tank(graphicsContext, BASIC_WIDTH - START_X, START_Y);
-
-        gameMechanics(serverWindow, graphicsContext, keys, enemyKeys, weapon, weapon2);
-        serverWindow.show();
-    }
-
-    /** Creates list of KeyCode */
-    private LinkedList<KeyCode> keyboardSettings(Scene scene) {
-        LinkedList<KeyCode> input = new LinkedList<>();
-        scene.setOnKeyPressed(
-                keyEvent -> {
-                    KeyCode code = keyEvent.getCode();
-
-                    if (!input.contains(code)) {
-                        input.add(code);
-                    }
-                });
-
-        scene.setOnKeyReleased(
-                keyEvent -> {
-                    KeyCode code = keyEvent.getCode();
-                    input.remove(code);
-                });
-        return input;
-    }
-
-    /**
-     * Returns a list of received values
-     */
-    private List<KeyCode> enemyKeyboardSettings(Game game) {
-        List<KeyCode> input = new CopyOnWriteArrayList<>();
-
-        executor.submit(() -> {
-            while (true) {
-                KeyCode key = game.receive();
-                if (key != null) {
-                    input.add(key);
-                }
-
-            }
-        });
-
-        return input;
-    }
-
     /**
      * Method for realise game mechanics
      * @param primaryStage yor stage
@@ -175,8 +38,9 @@ public class ServerApl extends Application {
      * @param weapon1 your weapon
      * @param weapon2 weapon your enemy
      */
-    private void gameMechanics(Stage primaryStage, GraphicsContext graphicsContext,
-                               List<KeyCode> keys, List<KeyCode> enemy, Tank weapon1, Tank weapon2) {
+    public GameMechanics(Stage primaryStage, GraphicsContext graphicsContext,
+                               List<KeyCode> keys, List<KeyCode> enemy, Tank weapon1, Tank weapon2, Game game) {
+        this.game = game;
         Map map = new Map(graphicsContext);
         map.putOnTheGround(weapon1);
         map.putOnTheGround(weapon2);
@@ -215,6 +79,7 @@ public class ServerApl extends Application {
             }
         }.start();
     }
+
 
     /**
      * Apply processCommand to keys
@@ -319,18 +184,6 @@ public class ServerApl extends Application {
 
         for (Bullet projectile : toRemove) {
             projectiles.remove(projectile);
-        }
-    }
-
-    @Override
-    public void stop() {
-        serverWindow.close();
-        game.close();
-        executor.shutdownNow();
-        try {
-            super.stop();
-        } catch (Exception e) {
-            //yep
         }
     }
 }

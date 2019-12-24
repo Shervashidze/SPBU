@@ -4,6 +4,10 @@ import com.sun.javafx.geom.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Class for working with medium bullets
+ * compromise between speed and explosion radius.
+ */
 public class NormalBullet extends Bullet {
 
     public NormalBullet(GraphicsContext graphicsContext, Vec2d start, double angle) {
@@ -16,6 +20,10 @@ public class NormalBullet extends Bullet {
         setSpeed(80);
     }
 
+    /**
+     *
+     * @return bullet size
+     */
     @Override
     protected int bulletSize() {
         return 25;
