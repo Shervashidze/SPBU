@@ -13,9 +13,11 @@ import static group244.shervashidze.ExitWindows.exitWindow;
 import static java.util.stream.Collectors.toList;
 
 public class GameMechanics {
-
+    private static final int START_X = 250;
+    private static final int START_Y = 0;
     private boolean isEnded;
     private volatile Game game;
+    private List<KeyCode> codes = new LinkedList<>();
 
     private static final Set<KeyCode> SUPPORTED_KEYS = EnumSet.of(
             KeyCode.LEFT,
@@ -53,7 +55,6 @@ public class GameMechanics {
                 updateWeapon(map, weapon2, enemy, primaryStage, projectiles);
                 for (Bullet projectile : projectiles) {
                     if (map.isOnTheGround(projectile)) {
-
                         if (weapon1.weaponDestroy(projectile)) {
                             if (!isEnded) {
                                 isEnded = true;
@@ -80,21 +81,24 @@ public class GameMechanics {
         }.start();
     }
 
-
     /**
      * Apply processCommand to keys
      */
     private void interactWithEnemy(List<KeyCode> keys) {
-        List<KeyCode> codes = keys.stream().filter(SUPPORTED_KEYS::contains).collect(toList());
-        processCommand(codes);
-        codes.clear();
+        codes.addAll(keys.stream().filter(SUPPORTED_KEYS::contains).collect(toList()));
+        if (game.out != null) {
+            processCommand(codes);
+            codes.clear();
+        }
     }
 
     /**
      * Sends commands
      */
     private void processCommand(List<KeyCode> commands) {
-        game.send(commands);
+        if (game.out != null) {
+            game.send(commands);
+        }
     }
 
     /**

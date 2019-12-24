@@ -2,6 +2,7 @@ package group244.shervashidze;
 
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;

@@ -21,6 +21,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * GameApplication play game as server or as client
+ */
 public class GameApplication extends Application {
     private static GridPane gridPane = new GridPane();
     private Scene scene = new Scene(gridPane, 500, 300);
@@ -47,8 +50,8 @@ public class GameApplication extends Application {
 
         serverButtonAction();
         connectButton();
-
         clientButton.setOnAction(event -> {
+            serverButton.setDisable(true);
             clientButton.setDisable(true);
             connect.setDisable(false);
             ipAddress.setDisable(false);
@@ -56,12 +59,16 @@ public class GameApplication extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+        window = new Stage();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * creating grid pane with buttons to start game as client or server
+     */
     private static void initialize() {
         gridPane.setPadding(new Insets(25, 25, 25, 25));
         gridPane.setHgap(25);
@@ -99,7 +106,6 @@ public class GameApplication extends Application {
      */
     private void connectButton() {
         connect.setOnAction(event -> {
-            serverButton.setDisable(true);
             String ipAddressText = ipAddress.getText();
             try {
                 if (!InetAddress.getLocalHost().getHostAddress().equals(ipAddressText)) {
@@ -126,6 +132,9 @@ public class GameApplication extends Application {
         });
     }
 
+    /**
+     * actions on server button pressed
+     */
     private void serverButtonAction() {
         serverButton.setOnAction(event -> {
             clientButton.setDisable(true);
@@ -155,7 +164,6 @@ public class GameApplication extends Application {
      * Realise game for client
      */
     private void startClientGame() {
-        window = new Stage();
         window.setTitle("Client Window");
 
         Group root = new Group();
@@ -164,7 +172,7 @@ public class GameApplication extends Application {
         List<KeyCode> keys = keyboardSettings(scene);
         List<KeyCode> enemyKeys = enemyKeyboardSettings(game);
 
-        Canvas canvas = new Canvas(BASIC_WIDTH, BASIC_HEIGHT);
+        Canvas canvas = new Canvas(BASIC_WIDTH, BASIC_HEIGHT + 40);
         root.getChildren().add(canvas);
 
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -173,11 +181,14 @@ public class GameApplication extends Application {
         Tank weapon2 = new Tank(graphicsContext, BASIC_WIDTH - START_X, START_Y);
 
         new GameMechanics(window, graphicsContext, keys, enemyKeys, weapon2, weapon, game);
+        window.setResizable(false);
         window.show();
     }
 
+    /**
+     * Realise game for server
+     */
     private void startServerGame() {
-        window = new Stage();
         window.setTitle("Server Window");
 
         Group root = new Group();
@@ -195,8 +206,8 @@ public class GameApplication extends Application {
         Tank weapon2 = new Tank(graphicsContext, BASIC_WIDTH - START_X, START_Y);
 
         new GameMechanics(window, graphicsContext, keys, enemyKeys, weapon, weapon2, game);
-        window.show();
         window.setResizable(false);
+        window.show();
     }
 
     /** Creates list of KeyCode */
