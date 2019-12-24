@@ -12,6 +12,9 @@ import static group244.shervashidze.ExitWindows.escapeeWindow;
 import static group244.shervashidze.ExitWindows.exitWindow;
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Game mechanics to send or get players movements and to project them on map
+ */
 public class GameMechanics {
     private static final int START_X = 250;
     private static final int START_Y = 0;
@@ -39,6 +42,7 @@ public class GameMechanics {
      * @param enemy code keys your enemy
      * @param weapon1 your weapon
      * @param weapon2 weapon your enemy
+     * @param game game to communicate with enemy
      */
     public GameMechanics(Stage primaryStage, GraphicsContext graphicsContext,
                                List<KeyCode> keys, List<KeyCode> enemy, Tank weapon1, Tank weapon2, Game game) {
