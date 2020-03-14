@@ -1,5 +1,6 @@
 module ListReverser where
 
 reverser :: [a] -> [a]
-reverser [] = []
-reverser (x:xs) = reverser xs ++ [x]
+reverser list = reverser' list [] where
+     reverser' [] list = list
+     reverser' (x:xs) list = reverser' xs (x:list)
