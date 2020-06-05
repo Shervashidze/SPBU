@@ -3,7 +3,7 @@ original function:
 func x l = map (\y -> y*x) l
 
 reducing lambda:
-func x 1 = map (*x) 1
+func x l = map (*x) l
 
 reducing last arg:
 func x = map (*x)
